@@ -26,12 +26,22 @@ plugin.addAdminNavigation = function(header, callback) {
 };
 
 plugin.getCategories = function(data, callback) {
-	topics.getTopicsFromSet('topics:recent', data.req.uid, 0, 3, function(err, topics) {
+	topics.getTopicsFromSet('topics:recent', data.req.uid, 0, 19, function(err, topics) {
 		if (err) {
 			return next(err);
 		}
 
-		data.templateData.topics = topics.topics;
+		var i = 0, cids = [], finalTopics = [];
+		while (topics.topics.length > 4 && i < topics.topics.length) {
+			if (cids.indexOf(topics.topics[i].cid) === -1) {
+				cids.push(topics.topics[i].cid);
+				finalTopics.push(topics.topics[i]);
+			}
+			
+			i++;
+		}
+
+		data.templateData.topics = finalTopics;
 		callback(null, data);
 	});
 };
