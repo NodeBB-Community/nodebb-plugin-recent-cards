@@ -1,7 +1,8 @@
 "use strict";
 
 var plugin = {},
-	async = module.parent.require('async');
+	async = module.parent.require('async'),
+	topics = module.parent.require('./topics');
 
 plugin.init = function(params, callback) {
 	var app = params.router,
@@ -22,6 +23,17 @@ plugin.addAdminNavigation = function(header, callback) {
 	});
 
 	callback(null, header);
+};
+
+plugin.getCategories = function(data, callback) {
+	topics.getTopicsFromSet('topics:recent', data.req.uid, 0, 3, function(err, topics) {
+		if (err) {
+			return next(err);
+		}
+
+		data.templateData.topics = topics.topics;
+		callback(null, data);
+	});
 };
 
 
