@@ -41,6 +41,8 @@
 					</a>
 				</div>
 			</div>
+
+			<span class="post-count" style="color: {topics.category.color};">{topics.postcount}</span>
 		</div>
 	</div>
 	<!-- END topics -->
