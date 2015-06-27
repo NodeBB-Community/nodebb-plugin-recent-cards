@@ -1,0 +1,26 @@
+{
+  "name": "nodebb-plugin-recent-cards",
+  "version": "0.0.1",
+  "description": "Add lavender-style cards of recent topics to Persona's category homepage",
+  "main": "library.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/psychobunny/nodebb-plugin-recent-cards"
+  },
+  "keywords": [
+    "nodebb",
+    "plugin",
+    "recent",
+    "cards",
+    "persona"
+  ],
+  "author": {
+    "name": "psychobunny",
+    "email": "psycho.bunny@hotmail.com"
+  },
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/psychobunny/nodebb-plugin-recent-cards/issues"
+  },
+  "readmeFilename": "README.md"
+}

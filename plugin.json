@@ -1,0 +1,28 @@
+{
+	"id": "nodebb-plugin-recent-cards",
+	"name": "Recent Cards plugin for NodeBB's Persona Theme",
+	"description": "Add lavender-style cards of recent topics to Persona's category homepage",
+	"url": "https://github.com/NodeBB/nodebb-plugin-recent-cards",
+	"library": "./library.js",
+	"hooks": [
+		{
+			"hook": "static:app.load", "method": "init"
+		},
+		{
+			"hook": "filter:admin.header.build", "method": "addAdminNavigation"
+		},
+		{
+			"hook": "filter:categories.build", "method": "getCategories"
+		}
+	],
+	"staticDirs": {
+		"static": "./static"
+	},
+	"less": [
+		"static/style.less"
+	],
+	"scripts": [
+		"static/lib/main.js"
+	],
+	"templates": "static/templates"
+}
