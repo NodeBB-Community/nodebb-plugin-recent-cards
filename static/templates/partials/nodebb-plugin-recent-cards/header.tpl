@@ -9,12 +9,7 @@
 		<meta itemprop="name" content="{topics.category.name}">
 
 		<div class="category-icon">
-
-			<!-- IF topics.category.link -->
-			<a style="color: {topics.category.color};" href="{topics.category.link}" itemprop="url" target="_blank">
-			<!-- ELSE -->
 			<a style="color: {topics.category.color};" href="{config.relative_path}/topic/{topics.slug}" itemprop="url">
-			<!-- ENDIF topics.category.link -->
 				<div
 					id="category-{topics.category.cid}" class="category-header category-header-image-{topics.category.imageClass}"
 					style="
@@ -31,11 +26,7 @@
 
 			<div class="category-box">
 				<div class="category-info" style="color: {topics.category.color};">
-					<!-- IF topics.category.link -->
-					<a href="{topics.category.link}" itemprop="url" target="_blank" style="color: {topics.category.color};">
-					<!-- ELSE -->
 					<a href="{config.relative_path}/topic/{topics.slug}" itemprop="url" style="color: {topics.category.color};">
-					<!-- ENDIF topics.category.link-->
 						<h4><!-- IF topics.category.icon --><i class="fa {topics.category.icon} visible-xs-inline"></i> <!-- ENDIF topics.category.icon -->{topics.title}</h4>
 						<div class="description" itemprop="description"><strong>{topics.category.name}</strong> <span class="timeago" title="{topics.relativeTime}"></div>
 					</a>
