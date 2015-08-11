@@ -19,7 +19,7 @@
 					"
 				>
 					<!-- IF topics.category.icon -->
-					<div><i class="fa {topics.category.icon} fa-4x"></i></div>
+					<div><i class="fa {topics.category.icon} fa-4x hidden-xs"></i></div>
 					<!-- ENDIF topics.category.icon -->
 				</div>
 			</a>
