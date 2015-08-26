@@ -2,7 +2,10 @@
 
 var plugin = {},
 	async = module.parent.require('async'),
-	topics = module.parent.require('./topics');
+	topics = module.parent.require('./topics'),
+	emitter = module.parent.require('./emitter');
+
+emitter.on('nodebb:ready', modifyCategoryTpl);
 
 plugin.init = function(params, callback) {
 	var app = params.router,
@@ -12,7 +15,7 @@ plugin.init = function(params, callback) {
 	app.get('/admin/plugins/quickstart', middleware.admin.buildHeader, renderAdmin);
 	app.get('/api/admin/plugins/quickstart', renderAdmin);
 
-	modifyCategoryTpl(callback);
+	callback();
 };
 
 plugin.addAdminNavigation = function(header, callback) {
