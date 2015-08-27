@@ -57,6 +57,8 @@ function renderAdmin(req, res, next) {
 }
 
 function modifyCategoryTpl(callback) {
+	callback = callback || function() {};
+	
 	var fs = require('fs'),
 		path = require('path'),
 		nconf = module.parent.require('nconf'),
