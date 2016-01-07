@@ -15,14 +15,8 @@
 			"hook": "filter:categories.build", "method": "getCategories"
 		}
 	],
-	"staticDirs": {
-		"static": "./static"
-	},
 	"less": [
 		"static/style.less"
-	],
-	"scripts": [
-		"static/lib/main.js"
 	],
 	"templates": "static/templates"
 }
