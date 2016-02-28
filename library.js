@@ -11,18 +11,18 @@ plugin.init = function(params, callback) {
 	var app = params.router,
 		middleware = params.middleware,
 		controllers = params.controllers;
-		
-	app.get('/admin/plugins/quickstart', middleware.admin.buildHeader, renderAdmin);
-	app.get('/api/admin/plugins/quickstart', renderAdmin);
+
+	app.get('/admin/plugins/recent-cards', middleware.admin.buildHeader, renderAdmin);
+	app.get('/api/admin/plugins/recent-cards', renderAdmin);
 
 	callback();
 };
 
 plugin.addAdminNavigation = function(header, callback) {
 	header.plugins.push({
-		route: '/plugins/quickstart',
+		route: '/plugins/recent-cards',
 		icon: 'fa-tint',
-		name: 'Quickstart'
+		name: 'Recent Cards'
 	});
 
 	callback(null, header);
@@ -37,12 +37,12 @@ plugin.getCategories = function(data, callback) {
 		var i = 0, cids = [], finalTopics = [];
 		while (finalTopics.length < 4 && i < topics.topics.length) {
 			var cid = parseInt(topics.topics[i].cid, 10);
-			
+
 			if (cids.indexOf(cid) === -1) {
 				cids.push(cid);
 				finalTopics.push(topics.topics[i]);
 			}
-			
+
 			i++;
 		}
 
@@ -53,12 +53,12 @@ plugin.getCategories = function(data, callback) {
 
 
 function renderAdmin(req, res, next) {
-	res.render('admin/plugins/quickstart', {});
+	res.render('admin/plugins/recent-cards', {});
 }
 
 function modifyCategoryTpl(callback) {
 	callback = callback || function() {};
-	
+
 	var fs = require('fs'),
 		path = require('path'),
 		nconf = module.parent.require('nconf'),
