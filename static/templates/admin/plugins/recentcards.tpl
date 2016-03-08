@@ -8,6 +8,10 @@
 						<label for="opacity">Background Opacity</label>
 						<input type="text" id="opacity" data-key="opacity" title="opacity" class="form-control" placeholder="1.0">
 					</div>
+					<div class="form-group">
+						<label for="opacity">Text Shadow</label>
+						<input type="text" id="shadow" data-key="shadow" title="shadow" class="form-control" placeholder="none">
+					</div>
 				</form>
 			</div>
 		</div>

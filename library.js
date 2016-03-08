@@ -7,7 +7,7 @@ var plugin = {},
 	settings = module.parent.require('./settings'),
 	socketAdmin = module.parent.require('./socket.io/admin'),
 	emitter = module.parent.require('./emitter'),
-	defaultSettings = { opacity: '1.0' };
+	defaultSettings = { opacity: '1.0', textShadow: 'none' };
 
 emitter.on('nodebb:ready', modifyCategoryTpl);
 
@@ -63,7 +63,10 @@ plugin.getCategories = function(data, callback) {
 			});
 		}, function () {
 			data.templateData.topics = finalTopics;
-			data.templateData.opacity = plugin.settings.get('opacity');
+			data.templateData.recentCards = {
+				opacity: plugin.settings.get('opacity'),
+				textShadow: plugin.settings.get('shadow')
+			};
 			callback(null, data);
 		});
 	});
