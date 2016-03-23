@@ -3,7 +3,11 @@
 var plugin = {},
 	async = module.parent.require('async'),
 	topics = module.parent.require('./topics'),
-	emitter = module.parent.require('./emitter');
+	categories = module.parent.require('./categories'),
+	settings = module.parent.require('./settings'),
+	socketAdmin = module.parent.require('./socket.io/admin'),
+	emitter = module.parent.require('./emitter'),
+	defaultSettings = { opacity: '1.0', textShadow: 'none' };
 
 emitter.on('nodebb:ready', modifyCategoryTpl);
 
@@ -11,18 +15,24 @@ plugin.init = function(params, callback) {
 	var app = params.router,
 		middleware = params.middleware,
 		controllers = params.controllers;
-		
-	app.get('/admin/plugins/quickstart', middleware.admin.buildHeader, renderAdmin);
-	app.get('/api/admin/plugins/quickstart', renderAdmin);
+
+	app.get('/admin/plugins/recentcards', middleware.admin.buildHeader, renderAdmin);
+	app.get('/api/admin/plugins/recentcards', renderAdmin);
+
+	plugin.settings = new settings('recentcards', '1.0.0', defaultSettings);
+
+	socketAdmin.settings.syncRecentCards = function () {
+		plugin.settings.sync();
+	};
 
 	callback();
 };
 
 plugin.addAdminNavigation = function(header, callback) {
 	header.plugins.push({
-		route: '/plugins/quickstart',
+		route: '/plugins/recentcards',
 		icon: 'fa-tint',
-		name: 'Quickstart'
+		name: 'Recent Cards'
 	});
 
 	callback(null, header);
@@ -37,28 +47,38 @@ plugin.getCategories = function(data, callback) {
 		var i = 0, cids = [], finalTopics = [];
 		while (finalTopics.length < 4 && i < topics.topics.length) {
 			var cid = parseInt(topics.topics[i].cid, 10);
-			
+
 			if (cids.indexOf(cid) === -1) {
 				cids.push(cid);
 				finalTopics.push(topics.topics[i]);
 			}
-			
+
 			i++;
 		}
 
-		data.templateData.topics = finalTopics;
-		callback(null, data);
+		async.each(finalTopics, function (topic, next) {
+			categories.getCategoryField(topic.cid, 'image', function (err, image) {
+				topic.category.backgroundImage = image;
+				next();
+			});
+		}, function () {
+			data.templateData.topics = finalTopics;
+			data.templateData.recentCards = {
+				opacity: plugin.settings.get('opacity'),
+				textShadow: plugin.settings.get('shadow')
+			};
+			callback(null, data);
+		});
 	});
 };
 
-
 function renderAdmin(req, res, next) {
-	res.render('admin/plugins/quickstart', {});
+	res.render('admin/plugins/recentcards', {});
 }
 
 function modifyCategoryTpl(callback) {
 	callback = callback || function() {};
-	
+
 	var fs = require('fs'),
 		path = require('path'),
 		nconf = module.parent.require('nconf'),
