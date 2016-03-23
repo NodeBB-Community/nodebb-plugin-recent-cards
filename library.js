@@ -56,19 +56,12 @@ plugin.getCategories = function(data, callback) {
 			i++;
 		}
 
-		async.each(finalTopics, function (topic, next) {
-			categories.getCategoryField(topic.cid, 'image', function (err, image) {
-				topic.category.backgroundImage = image;
-				next();
-			});
-		}, function () {
-			data.templateData.topics = finalTopics;
-			data.templateData.recentCards = {
-				opacity: plugin.settings.get('opacity'),
-				textShadow: plugin.settings.get('shadow')
-			};
-			callback(null, data);
-		});
+		data.templateData.topics = finalTopics;
+		data.templateData.recentCards = {
+			opacity: plugin.settings.get('opacity'),
+			textShadow: plugin.settings.get('shadow')
+		};
+		callback(null, data);
 	});
 };
 
