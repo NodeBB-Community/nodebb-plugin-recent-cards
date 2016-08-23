@@ -18,8 +18,8 @@
 	"staticDirs": {
 		"static": "./static"
 	},
-	"less": [
-		"static/style.less"
+	"sass": [
+		"static/style.scss"
 	],
 	"scripts": [
 		"static/lib/main.js"
