@@ -9,7 +9,7 @@
 		<meta itemprop="name" content="{topics.category.name}">
 
 		<div class="category-icon">
-			<div class="bg" style="opacity:{recentCards.opacity};<!-- IF topics.category.image -->background-image: url({topics.category.image});<!-- ELSE --><!-- IF topics.category.bgColor -->background-color: {topics.category.bgColor};<!-- ENDIF topics.category.bgColor --><!-- ENDIF topics.category.image -->"></div>
+			<div class="bg" style="opacity:{recentCards.opacity};<!-- IF topics.category.backgroundImage -->background-image: url({topics.category.backgroundImage});<!-- ELSE --><!-- IF topics.category.bgColor -->background-color: {topics.category.bgColor};<!-- ENDIF topics.category.bgColor --><!-- ENDIF topics.category.backgroundImage -->"></div>
 			<a style="color: {topics.category.color};" href="{config.relative_path}/topic/{topics.slug}" itemprop="url">
 				<div
 					id="category-{topics.category.cid}" class="category-header category-header-image-{topics.category.imageClass}"
@@ -24,7 +24,7 @@
 			<div class="category-box">
 				<div class="category-info" style="color: {topics.category.color};">
 					<a href="{config.relative_path}/topic/{topics.slug}" itemprop="url" style="color: {topics.category.color};">
-						<h5><!-- IF topics.category.icon --><i class="fa {topics.category.icon} hidden-md-up></i> <!-- ENDIF topics.category.icon -->{topics.title}</h5>
+						<h5><!-- IF topics.category.icon --><i class="fa {topics.category.icon} hidden-md-up"></i> <!-- ENDIF topics.category.icon -->{topics.title}</h5>
 						<div class="description" itemprop="description"><strong>{topics.category.name}</strong> <span class="timeago" title="{topics.teaser.timestampISO}"></span></div>
 					</a>
 				</div>
