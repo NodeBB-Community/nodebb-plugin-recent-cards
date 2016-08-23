@@ -19,7 +19,7 @@
 		"static": "./static"
 	},
 	"less": [
-		"static/style.less"
+		"static/style.scss"
 	],
 	"scripts": [
 		"static/lib/main.js"
