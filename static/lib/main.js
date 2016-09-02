@@ -4,11 +4,12 @@
 $(document).ready(function(){
 	$(window).on('action:ajaxify.end', function(ev, data) {
 		if (data.tpl_url === 'categories') {
-			if (ajaxify.data.enableCarousel) {
+			if (ajaxify.data.recentCards.enableCarousel) {
 				$('.recent-cards').bxSlider({
 					slideWidth: 292,
 					minSlides: 1,
-					maxSlides: 4
+					maxSlides: 4,
+					pager: ajaxify.data.recentCards.enableCarouselPagination ? true: false
 				});
 			}
 		}

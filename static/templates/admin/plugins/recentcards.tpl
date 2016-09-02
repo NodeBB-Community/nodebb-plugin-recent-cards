@@ -14,10 +14,19 @@
 					</div>
 
 					<div class="form-group">
-						<label for="enableCarousel">
-							<input type="checkbox" data-key="enableCarousel" id="enableCarousel" name="enableCarousel" />
-							Enable Carousel Mode
-						</label>
+						<div class="checkbox">
+							<label for="enableCarousel">
+								<input type="checkbox" data-key="enableCarousel" id="enableCarousel" name="enableCarousel" />
+								Enable Carousel Mode
+							</label>
+						</div>
+
+						<div class="checkbox">
+							<label for="enableCarouselPagination">
+								<input type="checkbox" data-key="enableCarouselPagination" id="enableCarouselPagination" name="enableCarouselPagination" />
+								Turn on paginator for carousel
+							</label>
+						</div>
 					</div>
 				</form>
 			</div>
