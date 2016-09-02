@@ -3,9 +3,9 @@
 	<p>Recent Topics</p>
 </ul>
 
-<div class="row recent-cards" itemscope itemtype="http://www.schema.org/ItemList">
+<ul class="row recent-cards" itemscope itemtype="http://www.schema.org/ItemList">
 	<!-- BEGIN topics -->
-	<div class="<!-- IF topics.category.class -->{topics.category.class}<!-- ELSE -->col-md-3 col-sm-6 col-xs-12<!-- ENDIF topics.category.class --> category-item" data-cid="{topics.category.cid}" data-numRecentReplies="{topics.category.numRecentReplies}" style="text-shadow:{recentCards.textShadow};">
+	<li class="<!-- IF topics.category.class -->{topics.category.class}<!-- ELSE -->col-md-3 col-sm-6 col-xs-12<!-- ENDIF topics.category.class --> category-item" data-cid="{topics.category.cid}" data-numRecentReplies="{topics.category.numRecentReplies}" style="text-shadow:{recentCards.textShadow};">
 		<meta itemprop="name" content="{topics.category.name}">
 
 		<a style="color: {topics.category.color};" href="{config.relative_path}/topic/{topics.slug}" itemprop="url">
@@ -28,7 +28,7 @@
 				<!-- ENDIF topics.category.icon -->
 			</div>
 		</a>
-	</div>
+	</li>
 	<!-- END topics -->
-</div>
+</ul>
 <br />

@@ -9,8 +9,15 @@
 						<input type="text" id="opacity" data-key="opacity" title="opacity" class="form-control" placeholder="1.0">
 					</div>
 					<div class="form-group">
-						<label for="opacity">Text Shadow</label>
+						<label for="shadow">Text Shadow</label>
 						<input type="text" id="shadow" data-key="shadow" title="shadow" class="form-control" placeholder="none">
+					</div>
+
+					<div class="form-group">
+						<label for="enableCarousel">
+							<input type="checkbox" data-key="enableCarousel" id="enableCarousel" name="enableCarousel" />
+							Enable Carousel Mode
+						</label>
 					</div>
 				</form>
 			</div>

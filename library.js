@@ -3,18 +3,16 @@
 var plugin = {},
 	async = module.parent.require('async'),
 	topics = module.parent.require('./topics'),
-	categories = module.parent.require('./categories'),
 	settings = module.parent.require('./settings'),
 	socketAdmin = module.parent.require('./socket.io/admin'),
 	emitter = module.parent.require('./emitter'),
-	defaultSettings = { opacity: '1.0', textShadow: 'none' };
+	defaultSettings = { opacity: '1.0', textShadow: 'none', enableCarousel: false };
 
 emitter.on('nodebb:ready', modifyCategoryTpl);
 
 plugin.init = function(params, callback) {
 	var app = params.router,
-		middleware = params.middleware,
-		controllers = params.controllers;
+		middleware = params.middleware;
 
 	app.get('/admin/plugins/recentcards', middleware.admin.buildHeader, renderAdmin);
 	app.get('/api/admin/plugins/recentcards', renderAdmin);
@@ -41,31 +39,37 @@ plugin.addAdminNavigation = function(header, callback) {
 plugin.getCategories = function(data, callback) {
 	topics.getTopicsFromSet('topics:recent', data.req.uid, 0, 19, function(err, topics) {
 		if (err) {
-			return next(err);
+			return callback(err);
 		}
 
 		var i = 0, cids = [], finalTopics = [];
-		while (finalTopics.length < 4 && i < topics.topics.length) {
-			var cid = parseInt(topics.topics[i].cid, 10);
+		
+		if (!plugin.settings.enableCarousel) {
+			while (finalTopics.length < 4 && i < topics.topics.length) {
+				var cid = parseInt(topics.topics[i].cid, 10);
 
-			if (cids.indexOf(cid) === -1) {
-				cids.push(cid);
-				finalTopics.push(topics.topics[i]);
+				if (cids.indexOf(cid) === -1) {
+					cids.push(cid);
+					finalTopics.push(topics.topics[i]);
+				}
+
+				i++;
 			}
-
-			i++;
+		} else {
+			finalTopics = topics.topics;
 		}
 
 		data.templateData.topics = finalTopics;
 		data.templateData.recentCards = {
 			opacity: plugin.settings.get('opacity'),
-			textShadow: plugin.settings.get('shadow')
+			textShadow: plugin.settings.get('shadow'),
+			enableCarousel: plugin.settings.get('enableCarousel')
 		};
 		callback(null, data);
 	});
 };
 
-function renderAdmin(req, res, next) {
+function renderAdmin(req, res) {
 	res.render('admin/plugins/recentcards', {});
 }
 

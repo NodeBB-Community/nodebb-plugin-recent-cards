@@ -21,7 +21,11 @@
 	"less": [
 		"static/style.less"
 	],
+	"css": [
+		"static/bxslider/jquery.bxslider.css"
+	],
 	"scripts": [
+		"static/bxslider/jquery.bxslider.min.js",
 		"static/lib/main.js"
 	],
 	"templates": "static/templates"
