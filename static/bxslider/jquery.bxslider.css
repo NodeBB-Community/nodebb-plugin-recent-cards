@@ -130,11 +130,11 @@
 	text-indent: -9999px;
 	z-index: 2;
 	opacity: 0.5;
-	-webkit-transition: opacity 0.25 ease-out;
-	-moz-transition: opacity 0.25 ease-out;
-	-ms-transition: opacity 0.25 ease-out;
-	-o-transition: opacity 0.25 ease-out;
-	transition: opacity 0.25 ease-out;
+	-webkit-transition: opacity 0.25s ease-out;
+	-moz-transition: opacity 0.25s ease-out;
+	-ms-transition: opacity 0.25s ease-out;
+	-o-transition: opacity 0.25s ease-out;
+	transition: opacity 0.25s ease-out;
 }
 
 .bx-wrapper:hover .bx-controls-direction a {
