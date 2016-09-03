@@ -4,6 +4,7 @@ var plugin = {},
 	async = module.parent.require('async'),
 	topics = module.parent.require('./topics'),
 	settings = module.parent.require('./settings'),
+	groups = module.parent.require('./groups'),
 	socketAdmin = module.parent.require('./socket.io/admin'),
 	emitter = module.parent.require('./emitter'),
 	defaultSettings = { title: 'Recent Topics', opacity: '1.0', textShadow: 'none', enableCarousel: 0, enableCarouselPagination: 0 };
@@ -37,7 +38,7 @@ plugin.addAdminNavigation = function(header, callback) {
 };
 
 plugin.getCategories = function(data, callback) {
-	topics.getTopicsFromSet('topics:recent', data.req.uid, 0, 19, function(err, topics) {
+	function renderCards(err, topics) {
 		if (err) {
 			return callback(err);
 		}
@@ -67,12 +68,44 @@ plugin.getCategories = function(data, callback) {
 			enableCarousel: plugin.settings.get('enableCarousel'),
 			enableCarouselPagination: plugin.settings.get('enableCarouselPagination')
 		};
+
 		callback(null, data);
-	});
+	}
+
+	if (plugin.settings.get('groupName')) {
+		groups.getLatestMemberPosts(plugin.settings.get('groupName'), 19, data.req.uid, function(err, posts) {
+			var topics = {topics: []};
+			for (var p = 0, pp = posts.length; p < pp; p++) {
+				var topic = posts[p].topic;
+				topic.category = posts[p].category;
+				topics.topics.push(topic);
+			}
+
+			renderCards(err, topics);
+		});
+	} else {
+		console.log('here');
+		topics.getTopicsFromSet('topics:recent', data.req.uid, 0, 19, renderCards);
+	}
 };
 
 function renderAdmin(req, res) {
-	res.render('admin/plugins/recentcards', {});
+	var list = [];
+
+	groups.getGroups('groups:createtime', 0, -1, function(err, groups) {
+		groups.forEach(function(group) {
+			if (group.match(/cid:([0-9]*):privileges:groups:([\s\S]*)/) !== null) {
+				return;
+			}
+
+			list.push({
+				name: group,
+				value: group
+			});
+		});
+
+		res.render('admin/plugins/recentcards', {groups: list});
+	});	
 }
 
 function modifyCategoryTpl(callback) {

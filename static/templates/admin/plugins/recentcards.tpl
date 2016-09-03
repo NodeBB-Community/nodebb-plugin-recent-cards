@@ -10,6 +10,16 @@
 					</div>
 
 					<div class="form-group">
+						<label for="groupName">Optional: Select posts posted from a certain group only</label>
+						<select class="form-control" id="groupName" name="groupName" data-key="groupName">
+							<option value="">N/A</option>
+							<!-- BEGIN groups -->
+							<option value="{../name}">{../value}</option>
+							<!-- END groups -->
+						</select>
+					</div>
+
+					<div class="form-group">
 						<label for="opacity">Background Opacity</label>
 						<input type="text" id="opacity" data-key="opacity" title="opacity" class="form-control" placeholder="1.0">
 					</div>
