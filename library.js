@@ -84,7 +84,6 @@ plugin.getCategories = function(data, callback) {
 			renderCards(err, topics);
 		});
 	} else {
-		console.log('here');
 		topics.getTopicsFromSet('topics:recent', data.req.uid, 0, 19, renderCards);
 	}
 };
