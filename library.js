@@ -6,7 +6,7 @@ var plugin = {},
 	settings = module.parent.require('./settings'),
 	socketAdmin = module.parent.require('./socket.io/admin'),
 	emitter = module.parent.require('./emitter'),
-	defaultSettings = { opacity: '1.0', textShadow: 'none', enableCarousel: 0, enableCarouselPagination: 0 };
+	defaultSettings = { title: 'Recent Topics', opacity: '1.0', textShadow: 'none', enableCarousel: 0, enableCarouselPagination: 0 };
 
 emitter.on('nodebb:ready', modifyCategoryTpl);
 
@@ -61,6 +61,7 @@ plugin.getCategories = function(data, callback) {
 
 		data.templateData.topics = finalTopics;
 		data.templateData.recentCards = {
+			title: plugin.settings.get('title'),
 			opacity: plugin.settings.get('opacity'),
 			textShadow: plugin.settings.get('shadow'),
 			enableCarousel: plugin.settings.get('enableCarousel'),

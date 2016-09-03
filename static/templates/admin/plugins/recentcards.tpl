@@ -5,6 +5,11 @@
 			<div class="panel-body">
 				<form role="form" id="recentcards">
 					<div class="form-group">
+						<label for="title">Title</label>
+						<input type="text" id="title" data-key="title" title="title" class="form-control" placeholder="Recent Topics">
+					</div>
+
+					<div class="form-group">
 						<label for="opacity">Background Opacity</label>
 						<input type="text" id="opacity" data-key="opacity" title="opacity" class="form-control" placeholder="1.0">
 					</div>

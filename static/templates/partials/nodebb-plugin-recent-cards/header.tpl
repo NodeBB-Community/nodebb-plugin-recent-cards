@@ -1,6 +1,5 @@
 <!-- Recent Cards plugin -->
 <ul class="categories">
-	<p>Recent Topics</p>
 </ul>
 
 <ul class="row recent-cards" itemscope itemtype="http://www.schema.org/ItemList">
