@@ -11,6 +11,8 @@ $(document).ready(function(){
 					maxSlides: 4,
 					pager: ajaxify.data.recentCards.enableCarouselPagination ? true: false
 				});
+			} else {
+				$('.recent-cards').removeClass('carousel-mode');
 			}
 		}
 	});
