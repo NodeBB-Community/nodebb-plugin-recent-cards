@@ -6,10 +6,7 @@ var plugin = {},
 	settings = module.parent.require('./settings'),
 	groups = module.parent.require('./groups'),
 	socketAdmin = module.parent.require('./socket.io/admin'),
-	emitter = module.parent.require('./emitter'),
 	defaultSettings = { title: 'Recent Topics', opacity: '1.0', textShadow: 'none', enableCarousel: 0, enableCarouselPagination: 0 };
-
-emitter.on('nodebb:ready', modifyCategoryTpl);
 
 plugin.init = function(params, callback) {
 	var app = params.router,
@@ -44,7 +41,7 @@ plugin.getCategories = function(data, callback) {
 		}
 
 		var i = 0, cids = [], finalTopics = [];
-		
+
 		if (!plugin.settings.get('enableCarousel')) {
 			while (finalTopics.length < 4 && i < topics.topics.length) {
 				var cid = parseInt(topics.topics[i].cid, 10);
@@ -88,6 +85,10 @@ plugin.getCategories = function(data, callback) {
 	}
 };
 
+plugin.onNodeBBReady = function () {
+	modifyCategoryTpl();
+};
+
 function renderAdmin(req, res) {
 	var list = [];
 
@@ -104,7 +105,7 @@ function renderAdmin(req, res) {
 		});
 
 		res.render('admin/plugins/recentcards', {groups: list});
-	});	
+	});
 }
 
 function modifyCategoryTpl(callback) {
