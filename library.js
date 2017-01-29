@@ -1,6 +1,6 @@
 "use strict";
 
-
+var nconf = module.parent.require('nconf');
 var async = module.parent.require('async');
 var topics = module.parent.require('./topics');
 var settings = module.parent.require('./settings');
@@ -88,7 +88,9 @@ plugin.getCategories = function(data, callback) {
 };
 
 plugin.onNodeBBReady = function () {
-	modifyCategoryTpl();
+	if (nconf.get('isPrimary') === 'true') {
+		modifyCategoryTpl();
+	}
 };
 
 function renderAdmin(req, res) {
@@ -113,11 +115,10 @@ function renderAdmin(req, res) {
 function modifyCategoryTpl(callback) {
 	callback = callback || function() {};
 
-	var fs = require('fs'),
-		path = require('path'),
-		nconf = module.parent.require('nconf'),
-		tplPath = path.join(nconf.get('base_dir'), 'public/templates/categories.tpl'),
-		headerPath = path.join(nconf.get('base_dir'), 'node_modules/nodebb-plugin-recent-cards/static/templates/partials/nodebb-plugin-recent-cards/header.tpl');
+	var fs = require('fs');
+	var path = require('path');
+	var tplPath = path.join(nconf.get('base_dir'), 'public/templates/categories.tpl');
+	var headerPath = path.join(nconf.get('base_dir'), 'node_modules/nodebb-plugin-recent-cards/static/templates/partials/nodebb-plugin-recent-cards/header.tpl');
 
 	async.parallel({
 		original: function(next) {
