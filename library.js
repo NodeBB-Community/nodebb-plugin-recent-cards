@@ -1,16 +1,18 @@
 "use strict";
 
-var plugin = {},
-	async = module.parent.require('async'),
-	topics = module.parent.require('./topics'),
-	settings = module.parent.require('./settings'),
-	groups = module.parent.require('./groups'),
-	socketAdmin = module.parent.require('./socket.io/admin'),
-	defaultSettings = { title: 'Recent Topics', opacity: '1.0', textShadow: 'none', enableCarousel: 0, enableCarouselPagination: 0 };
+
+var async = module.parent.require('async');
+var topics = module.parent.require('./topics');
+var settings = module.parent.require('./settings');
+var groups = module.parent.require('./groups');
+var socketAdmin = module.parent.require('./socket.io/admin');
+var defaultSettings = { title: 'Recent Topics', opacity: '1.0', textShadow: 'none', enableCarousel: 0, enableCarouselPagination: 0 };
+
+var plugin = module.exports;
 
 plugin.init = function(params, callback) {
-	var app = params.router,
-		middleware = params.middleware;
+	var app = params.router;
+	var middleware = params.middleware;
 
 	app.get('/admin/plugins/recentcards', middleware.admin.buildHeader, renderAdmin);
 	app.get('/api/admin/plugins/recentcards', renderAdmin);
@@ -138,5 +140,3 @@ function modifyCategoryTpl(callback) {
 		fs.writeFile(tplPath, tpl, callback);
 	});
 }
-
-module.exports = plugin;
