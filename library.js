@@ -77,6 +77,7 @@ plugin.getCategories = function(data, callback) {
 			for (var p = 0, pp = posts.length; p < pp; p++) {
 				var topic = posts[p].topic;
 				topic.category = posts[p].category;
+				topic.timestampISO = posts[p].timestampISO;
 				topics.topics.push(topic);
 			}
 
