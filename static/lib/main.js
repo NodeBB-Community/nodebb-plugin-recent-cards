@@ -8,7 +8,7 @@ $(document).ready(function(){
 				$('.recent-cards').bxSlider({
 					slideWidth: 292,
 					minSlides: 1,
-					maxSlides: 4,
+					maxSlides: 10,
 					pager: ajaxify.data.recentCards.enableCarouselPagination ? true: false
 				});
 			} else {
