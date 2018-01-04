@@ -67,6 +67,10 @@ Place the following code wherever you'd like recent cards to be displayed:
 <div id="nodebb-plugin-recent-cards"></div>
 ```
 
+### Configure ACAO in NodeBB
+
+Under Settings -> Advanced in the NodeBB control panel, add the external site's URL to `Access-Control-Allow-Origin`
+
 ### Stuck?
 
 No problem! Visit https://yourforum.com/admin/plugins/nodebb-plugin-recent-cards/tests/external, which will render the standalone version of the plugin tailored for your website. Keep in mind that this includes all extra scripts and styling that you may not necessarily need if you already have Bootstrap, jQuery, etc. on your external site.
