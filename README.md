@@ -13,7 +13,7 @@ Install via one-click activation in the Admin Control Panel or run the following
 
 ![](http://i.imgur.com/V993A2v.png)
 
-## Standalone installation (Advanced)
+# Standalone installation for external websites (Advanced)
 
 Use this plugin on any external non-nodebb site (ex. Wordpress, etc) to show recent topics from your NodeBB install.
 
