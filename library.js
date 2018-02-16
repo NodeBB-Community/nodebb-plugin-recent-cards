@@ -2,6 +2,7 @@
 
 var nconf = module.parent.require('nconf');
 var async = module.parent.require('async');
+var validator = module.parent.require('validator');
 var topics = module.parent.require('./topics');
 var settings = module.parent.require('./settings');
 var groups = module.parent.require('./groups');
@@ -118,6 +119,8 @@ plugin.getCategories = function(data, callback) {
 
 			renderCards(err, topics);
 		});
+	} else if (plugin.settings.get('popularTerm')) {
+		topics.getPopularTopics(plugin.settings.get('popularTerm'), uid, 0, 19, renderCards);
 	} else {
 		topics.getTopicsFromSet('topics:recent', uid, 0, 19, renderCards);
 	}
@@ -129,22 +132,25 @@ plugin.onNodeBBReady = function () {
 	}
 };
 
-function renderAdmin(req, res) {
+function renderAdmin(req, res, next) {
 	var list = [];
 
-	groups.getGroups('groups:createtime', 0, -1, function(err, groups) {
-		groups.forEach(function(group) {
-			if (group.match(/cid:([0-9]*):privileges:groups:([\s\S]*)/) !== null) {
+	groups.getGroups('groups:createtime', 0, -1, function(err, groupsData) {
+		if (err) {
+			return next(err);
+		}
+		groupsData.forEach(function(group) {
+			if (groups.isPrivilegeGroup(group)) {
 				return;
 			}
 
 			list.push({
 				name: group,
-				value: group
+				value: validator.escape(String(group)),
 			});
 		});
 
-		res.render('admin/plugins/recentcards', {groups: list});
+		res.render('admin/plugins/recentcards', { groups: list });
 	});
 }
 

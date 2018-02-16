@@ -20,6 +20,16 @@
 					</div>
 
 					<div class="form-group">
+						<label for="popularTerm">Optional: Select a term to show popular topics</label>
+						<select class="form-control" id="popularTerm" name="popularTerm" data-key="popularTerm">
+							<option value="">Disabled</option>
+							<option value="day">Day</option>
+							<option value="week">Week</option>
+							<option value="month">Month</option>
+						</select>
+					</div>
+
+					<div class="form-group">
 						<label for="opacity">Background Opacity</label>
 						<input type="text" id="opacity" data-key="opacity" title="opacity" class="form-control" placeholder="1.0">
 					</div>
