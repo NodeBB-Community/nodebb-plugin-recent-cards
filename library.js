@@ -10,9 +10,10 @@ var socketAdmin = module.parent.require('./socket.io/admin');
 var defaultSettings = { title: 'Recent Topics', opacity: '1.0', textShadow: 'none', enableCarousel: 0, enableCarouselPagination: 0 };
 
 var plugin = module.exports;
+var app;
 
 plugin.init = function(params, callback) {
-	var app = params.router;
+	app = params.router;
 	var middleware = params.middleware;
 
 	app.get('/admin/plugins/recentcards', middleware.admin.buildHeader, renderAdmin);
@@ -40,6 +41,36 @@ plugin.addAdminNavigation = function(header, callback) {
 
 	callback(null, header);
 };
+
+plugin.defineWidgets = function(widgets, callback) {
+	var widget = {
+		widget: "recentCards",
+		name: "Recent Cards",
+		description: "Recent topics carousel",
+		content: '',
+	};
+
+	widgets.push(widget);
+	callback(null, widgets);
+};
+
+plugin.renderWidget = function(widget, callback) {
+	console.log(widget.uid);
+	var data = {
+		templateData: {},
+		req: {
+			uid: widget.uid,
+		},
+	};
+
+	plugin.getCategories(data, function(err, data) {
+		if (err) {
+			return callback(err);
+		}
+
+		app.render('partials/nodebb-plugin-recent-cards/header', data.templateData, callback);
+	});
+}
 
 function renderExternal(req, res, next) {
 	plugin.getCategories({
@@ -126,12 +157,6 @@ plugin.getCategories = function(data, callback) {
 	}
 };
 
-plugin.onNodeBBReady = function () {
-	if (nconf.get('isPrimary') === 'true') {
-		modifyCategoryTpl();
-	}
-};
-
 function renderAdmin(req, res, next) {
 	var list = [];
 
@@ -151,35 +176,5 @@ function renderAdmin(req, res, next) {
 		});
 
 		res.render('admin/plugins/recentcards', { groups: list });
-	});
-}
-
-function modifyCategoryTpl(callback) {
-	callback = callback || function() {};
-
-	var fs = require('fs');
-	var path = require('path');
-	var tplPath = path.join(nconf.get('base_dir'), 'build/public/templates/categories.tpl');
-	var headerPath = path.join(nconf.get('base_dir'), 'node_modules/nodebb-plugin-recent-cards/static/templates/partials/nodebb-plugin-recent-cards/header.tpl');
-
-	async.parallel({
-		original: function(next) {
-			fs.readFile(tplPath, next);
-		},
-		header: function(next) {
-			fs.readFile(headerPath, next);
-		}
-	}, function(err, tpls) {
-		if (err) {
-			return callback(err);
-		}
-
-		var tpl = tpls.original.toString();
-
-		if (!tpl.match('<!-- Recent Cards plugin -->')) {
-			tpl = tpls.header.toString() + tpl;
-		}
-
-		fs.writeFile(tplPath, tpl, callback);
 	});
 }

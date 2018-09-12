@@ -1,4 +1,3 @@
-<!-- Recent Cards plugin -->
 <!-- IF topics.length -->
 <div class="recent-cards-plugin preventSlideOut">
 	<ul class="categories">

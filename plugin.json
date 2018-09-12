@@ -16,6 +16,12 @@
 		},
 		{
 			"hook": "action:nodebb.ready", "method": "onNodeBBReady"
+		},
+		{
+			"hook": "filter:widgets.getWidgets", "method": "defineWidgets"
+		},
+		{
+			"hook": "filter:widget.render:recentCards", "method": "renderWidget"
 		}
 	],
 	"staticDirs": {

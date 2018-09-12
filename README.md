@@ -9,6 +9,8 @@ Install via one-click activation in the Admin Control Panel or run the following
 
     npm i nodebb-plugin-recent-cards
 
+Then head over to Admin -> Extend -> Widgets and place the widget. Additional settings can be found at Admin -> Plugins -> Recent Cards.
+
 ## Screenshot
 
 ![](http://i.imgur.com/V993A2v.png)
