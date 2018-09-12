@@ -55,7 +55,6 @@ plugin.defineWidgets = function(widgets, callback) {
 };
 
 plugin.renderWidget = function(widget, callback) {
-	console.log(widget.uid);
 	var data = {
 		templateData: {},
 		req: {
