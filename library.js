@@ -151,7 +151,13 @@ plugin.getCategories = function(data, callback) {
 			renderCards(err, topics);
 		});
 	} else if (plugin.settings.get('popularTerm')) {
-		topics.getPopularTopics(plugin.settings.get('popularTerm'), uid, 0, 19, renderCards);
+		topics.getSortedTopics({
+			uid: req.uid,
+			start: 0,
+			stop: 19,
+			term: plugin.settings.get('popularTerm'),
+			sort: 'posts',
+		}, renderCards);
 	} else {
 		topics.getTopicsFromSet('topics:recent', uid, 0, 19, renderCards);
 	}
