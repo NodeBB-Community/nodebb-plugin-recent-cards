@@ -55,7 +55,6 @@ plugin.defineWidgets = function(widgets, callback) {
 };
 
 plugin.renderWidget = function(widget, callback) {
-	console.log(widget.uid);
 	var data = {
 		templateData: {},
 		req: {
@@ -152,7 +151,7 @@ plugin.getCategories = function(data, callback) {
 		});
 	} else if (plugin.settings.get('popularTerm')) {
 		topics.getSortedTopics({
-			uid: req.uid,
+			uid: uid,
 			start: 0,
 			stop: 19,
 			term: plugin.settings.get('popularTerm'),
