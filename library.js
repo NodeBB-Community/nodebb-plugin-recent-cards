@@ -67,7 +67,13 @@ plugin.renderWidget = function(widget, callback) {
 			return callback(err);
 		}
 
-		app.render('partials/nodebb-plugin-recent-cards/header', data.templateData, callback);
+		app.render('partials/nodebb-plugin-recent-cards/header', data.templateData, function (err, html) {
+			if (err) {
+				return callback(err);
+			}
+			widget.html = html;
+			callback(null, widget);
+		});
 	});
 }
 
