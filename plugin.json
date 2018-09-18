@@ -15,9 +15,6 @@
 			"hook": "filter:categories.build", "method": "getCategories"
 		},
 		{
-			"hook": "action:nodebb.ready", "method": "onNodeBBReady"
-		},
-		{
 			"hook": "filter:widgets.getWidgets", "method": "defineWidgets"
 		},
 		{
