@@ -1,12 +1,12 @@
 "use strict";
 
-var nconf = module.parent.require('nconf');
-var async = module.parent.require('async');
-var validator = module.parent.require('validator');
-var topics = module.parent.require('./topics');
-var settings = module.parent.require('./settings');
-var groups = module.parent.require('./groups');
-var socketAdmin = module.parent.require('./socket.io/admin');
+var nconf = require.main.require('nconf');
+var async = require.main.require('async');
+var validator = require.main.require('validator');
+var topics = require.main.require('./src/topics');
+var settings = require.main.require('./src/settings');
+var groups = require.main.require('./src/groups');
+var socketAdmin = require.main.require('./src/socket.io/admin');
 var defaultSettings = { title: 'Recent Topics', opacity: '1.0', textShadow: 'none', enableCarousel: 0, enableCarouselPagination: 0 };
 
 var plugin = module.exports;
