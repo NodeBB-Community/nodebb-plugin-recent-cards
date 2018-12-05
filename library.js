@@ -60,7 +60,11 @@ plugin.defineWidgets = function(widgets, callback) {
 
 plugin.renderWidget = function(widget, callback) {
 	var data = {
-		templateData: {},
+		templateData: {
+			config: {
+				relative_path: nconf.get('relative_path'),
+			},
+		},
 		req: {
 			uid: widget.uid,
 		},
