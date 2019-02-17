@@ -1,5 +1,5 @@
 <!-- IF topics.length -->
-<div class="recent-cards-plugin preventSlideOut">
+<div class="recent-cards-plugin preventSlideout">
 	<ul class="categories">
 		<p>{recentCards.title}</p>
 	</ul>
