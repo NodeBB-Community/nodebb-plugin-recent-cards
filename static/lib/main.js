@@ -3,7 +3,7 @@
 
 $(document).ready(function(){
 	$(window).on('action:ajaxify.end', function(ev, data) {
-		if (data.tpl_url === 'categories') {
+		if ($('.recent-cards').length) {
 			if (ajaxify.data.recentCards.enableCarousel) {
 				$('.recent-cards').bxSlider({
 					slideWidth: 292,
