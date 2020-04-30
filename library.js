@@ -1,7 +1,6 @@
 "use strict";
 
 var nconf = require.main.require('nconf');
-var async = require.main.require('async');
 var validator = require.main.require('validator');
 var topics = require.main.require('./src/topics');
 var settings = require.main.require('./src/settings');
@@ -13,15 +12,16 @@ var plugin = module.exports;
 var app;
 
 plugin.init = function(params, callback) {
-	app = params.router;
+	app = params.app;
+	const router = params.router;
 	var middleware = params.middleware;
 
-	app.get('/admin/plugins/recentcards', middleware.admin.buildHeader, renderAdmin);
-	app.get('/api/admin/plugins/recentcards', renderAdmin);
+	router.get('/admin/plugins/recentcards', middleware.admin.buildHeader, renderAdmin);
+	router.get('/api/admin/plugins/recentcards', renderAdmin);
 
-	app.get('/plugins/nodebb-plugin-recent-cards/render', renderExternal);
-	app.get('/plugins/nodebb-plugin-recent-cards/render/style.css', renderExternalStyle);
-	app.get('/admin/plugins/nodebb-plugin-recent-cards/tests/external', testRenderExternal);
+	router.get('/plugins/nodebb-plugin-recent-cards/render', renderExternal);
+	router.get('/plugins/nodebb-plugin-recent-cards/render/style.css', renderExternalStyle);
+	router.get('/admin/plugins/nodebb-plugin-recent-cards/tests/external', testRenderExternal);
 
 	plugin.settings = new settings('recentcards', '1.0.0', defaultSettings);
 
@@ -58,32 +58,26 @@ plugin.defineWidgets = function(widgets, callback) {
 	});
 };
 
-plugin.renderWidget = function(widget, callback) {
-	var data = {
-		templateData: {
-			config: {
-				relative_path: nconf.get('relative_path'),
-			},
-		},
-		req: {
-			uid: widget.uid,
-		},
-		cid: widget.data.cid || 0,
+plugin.getConfig = async function (config) {
+	config.recentCards = {
+		title: plugin.settings.get('title'),
+		opacity: plugin.settings.get('opacity'),
+		textShadow: plugin.settings.get('shadow'),
+		enableCarousel: plugin.settings.get('enableCarousel'),
+		enableCarouselPagination: plugin.settings.get('enableCarouselPagination'),
 	};
+	return config;
+},
 
-	plugin.getCategories(data, function(err, data) {
-		if (err) {
-			return callback(err);
-		}
-
-		app.render('partials/nodebb-plugin-recent-cards/header', data.templateData, function (err, html) {
-			if (err) {
-				return callback(err);
-			}
-			widget.html = html;
-			callback(null, widget);
-		});
+plugin.renderWidget = async function(widget) {
+	const topics = await getTopics(widget.uid, widget.data.cid || widget.templateData.cid || 0);
+	widget.html = await app.renderAsync('partials/nodebb-plugin-recent-cards/header', {
+		topics: topics,
+		config: {
+			relative_path: nconf.get('relative_path'),
+		},
 	});
+	return widget;
 }
 
 function renderExternal(req, res, next) {
@@ -115,77 +109,55 @@ function testRenderExternal(req, res, next) {
 	});
 }
 
-plugin.getCategories = function(data, callback) {
-	var uid = data.req ? data.req.uid : 0;
-	var filterCid = data.cid;
-
-	function renderCards(err, topics) {
-		if (err) {
-			return callback(err);
-		}
-
-		var i = 0;
-		var cids = [];
-		var finalTopics = [];
-
-		if (!plugin.settings.get('enableCarousel')) {
-			while (finalTopics.length < 4 && i < topics.topics.length) {
-				var cid = parseInt(topics.topics[i].cid, 10);
-
-				if (filterCid || !cids.includes(cid)) {
-					cids.push(cid);
-					finalTopics.push(topics.topics[i]);
-				}
-
-				i++;
-			}
-		} else {
-			finalTopics = topics.topics;
-		}
-
-		data.templateData.topics = finalTopics;
-		data.templateData.recentCards = {
-			title: plugin.settings.get('title'),
-			opacity: plugin.settings.get('opacity'),
-			textShadow: plugin.settings.get('shadow'),
-			enableCarousel: plugin.settings.get('enableCarousel'),
-			enableCarouselPagination: plugin.settings.get('enableCarouselPagination')
-		};
-
-		callback(null, data);
-	}
-
+async function getTopics(uid, filterCid) {
+	filterCid = parseInt(filterCid, 10);
+	let topicsData = { topics: [] };
 	if (plugin.settings.get('groupName')) {
-		groups.getLatestMemberPosts(plugin.settings.get('groupName'), 19, uid, function(err, posts) {
-			if (err) {
-				return callback(err);
+		const posts =  await groups.getLatestMemberPosts(plugin.settings.get('groupName'), 19, uid);
+		const tidMap = {};
+		posts.forEach(function (post) {
+			if (post.topic && post.category && !tidMap[post.topic.tid]) {
+				tidMap[post.topic.tid] = 1;
+				const topic = post.topic;
+				topic.category = post.category;
+				topic.timestampISO = post.timestampISO;
+				topicsData.topics.push(topic);
 			}
-			var topics = {topics: []};
-			for (var p = 0, pp = posts.length; p < pp; p++) {
-				var topic = posts[p].topic;
-				topic.category = posts[p].category;
-				topic.timestampISO = posts[p].timestampISO;
-				topics.topics.push(topic);
-			}
-
-			renderCards(null, topics);
 		});
 	} else if (plugin.settings.get('popularTerm')) {
-		topics.getSortedTopics({
+		topicsData = await topics.getSortedTopics({
 			uid: uid,
 			start: 0,
 			stop: 19,
 			term: plugin.settings.get('popularTerm'),
 			sort: 'posts',
 			cids: filterCid,
-		}, renderCards);
+		});
 	} else {
 		if (filterCid) {
-			topics.getTopicsFromSet('cid:' + filterCid + ':tids:lastposttime', uid, 0, 19, renderCards);
+			topicsData = await topics.getTopicsFromSet('cid:' + filterCid + ':tids:lastposttime', uid, 0, 19);
 		} else {
-			topics.getTopicsFromSet('topics:recent', uid, 0, 19, renderCards);
+			topicsData = await topics.getTopicsFromSet('topics:recent', uid, 0, 19);
 		}
 	}
+
+	var i = 0;
+	var cids = [];
+	var finalTopics = topicsData.topics;
+
+	if (!plugin.settings.get('enableCarousel')) {
+		while (finalTopics.length < 4 && i < topicsData.topics.length) {
+			var cid = parseInt(topicsData.topics[i].cid, 10);
+
+			if (filterCid || !cids.includes(cid)) {
+				cids.push(cid);
+				finalTopics.push(topicsData.topics[i]);
+			}
+
+			i++;
+		}
+	}
+	return finalTopics;
 };
 
 function renderAdmin(req, res, next) {

@@ -9,10 +9,10 @@
 			"hook": "static:app.load", "method": "init"
 		},
 		{
-			"hook": "filter:admin.header.build", "method": "addAdminNavigation"
+			"hook": "filter:config.get", "method": "getConfig"
 		},
 		{
-			"hook": "filter:categories.build", "method": "getCategories"
+			"hook": "filter:admin.header.build", "method": "addAdminNavigation"
 		},
 		{
 			"hook": "filter:widgets.getWidgets", "method": "defineWidgets"
