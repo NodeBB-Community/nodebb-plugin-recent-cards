@@ -143,7 +143,7 @@ async function getTopics(uid, filterCid) {
 
 	var i = 0;
 	var cids = [];
-	var finalTopics = topicsData.topics;
+	var finalTopics = [];
 
 	if (!plugin.settings.get('enableCarousel')) {
 		while (finalTopics.length < 4 && i < topicsData.topics.length) {
@@ -156,6 +156,8 @@ async function getTopics(uid, filterCid) {
 
 			i++;
 		}
+	} else {
+		finalTopics = topicsData.topics;
 	}
 	return finalTopics;
 };
