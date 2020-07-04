@@ -11,7 +11,7 @@
 
 			<a style="color: {topics.category.color};" href="{config.relative_path}/topic/{topics.slug}<!-- IF topics.bookmark -->/{topics.bookmark}<!-- ENDIF topics.bookmark -->" itemprop="url">
 				<div class="recent-card">
-					<div class="bg" style="opacity:{recentCards.opacity};<!-- IF topics.category.image -->background-image: url({topics.category.image});<!-- ELSE --><!-- IF topics.category.bgColor -->background-color: {topics.category.bgColor};<!-- ENDIF topics.category.bgColor --><!-- ENDIF topics.category.image -->"></div>
+					<div class="bg" style="opacity:{recentCards.opacity};<!-- IF topics.category.backgroundImage -->background-image: url({topics.category.backgroundImage});<!-- ELSE --><!-- IF topics.category.bgColor -->background-color: {topics.category.bgColor};<!-- ENDIF topics.category.bgColor --><!-- ENDIF topics.category.backgroundImage -->"></div>
 					<div class="topic-info" style="color: {topics.category.color};">
 						<span class="h4" itemprop="description">{topics.title}</span>
 						<br>
