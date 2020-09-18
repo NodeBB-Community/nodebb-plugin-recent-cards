@@ -71,11 +71,10 @@ plugin.getConfig = async function (config) {
 
 plugin.renderWidget = async function(widget) {
 	const topics = await getTopics(widget.uid, widget.data.cid || widget.templateData.cid || 0);
+	// console.log(topics[0]);
 	widget.html = await app.renderAsync('partials/nodebb-plugin-recent-cards/header', {
 		topics: topics,
-		config: {
-			relative_path: nconf.get('relative_path'),
-		},
+		config: widget.templateData.config,
 	});
 	return widget;
 }

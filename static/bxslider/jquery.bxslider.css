@@ -11,35 +11,54 @@
  */
 
 
+/** VARIABLES
+===================================*/
 /** RESET AND LAYOUT
 ===================================*/
 
 .bx-wrapper {
 	position: relative;
 	margin: 0 auto 60px;
+	margin-bottom: 0px;
 	padding: 0;
 	*zoom: 1;
+	-ms-touch-action: pan-y;
+	touch-action: pan-y;
 }
 
 .bx-wrapper img {
 	max-width: 100%;
 	display: block;
 }
-
-/** THEME
-===================================*/
-
-.bx-wrapper .bx-viewport {
-	border:  5px solid transparent;
-	left: -5px;
-	background: none;
-	
-	/*fix other elements on the page moving (on Chrome)*/
-	-webkit-transform: translatez(0);
+.bxslider {
+	margin: 0;
+	padding: 0;
+	/*fix flickering when used background-image instead of <img> (on Chrome)*/
+	-webkit-perspective: 1000;
 	-moz-transform: translatez(0);
     	-ms-transform: translatez(0);
     	-o-transform: translatez(0);
     	transform: translatez(0);
+}
+ul.bxslider {
+	list-style: none;
+}
+.bx-viewport {
+	border:  5px solid transparent;
+	left: -5px;
+	background: none;
+
+	/* fix other elements on the page moving (in Chrome) */
+	-webkit-transform: translateZ(0);
+}
+/** THEME
+===================================*/
+.bx-wrapper {
+	/* -moz-box-shadow: 0 0 5px #ccc;
+	-webkit-box-shadow: 0 0 5px #ccc;
+	box-shadow: 0 0 5px #ccc;
+	border: 5px solid #fff;
+	background: #fff; */
 }
 
 .bx-wrapper .bx-pager,
@@ -53,13 +72,13 @@
 
 .bx-wrapper .bx-loading {
 	min-height: 50px;
-	background: url(plugins/nodebb-plugin-recent-cards/static/bxslider/images/bx_loader.gif) center center no-repeat #fff;
+	background: url('plugins/nodebb-plugin-recent-cards/static/bxslider/images/bx_loader.gif') center center no-repeat #ffffff;
 	height: 100%;
 	width: 100%;
 	position: absolute;
 	top: 0;
 	left: 0;
-	z-index: 1;
+	z-index: 2000;
 }
 
 /* PAGER */
@@ -71,13 +90,6 @@
 	font-weight: bold;
 	color: #666;
 	padding-top: 20px;
-}
-
-.bx-wrapper .bx-pager .bx-pager-item,
-.bx-wrapper .bx-controls-auto .bx-controls-auto-item {
-	display: inline-block;
-	*zoom: 1;
-	*display: inline;
 }
 
 .bx-wrapper .bx-pager.bx-default-pager a {
@@ -94,29 +106,39 @@
 }
 
 .bx-wrapper .bx-pager.bx-default-pager a:hover,
-.bx-wrapper .bx-pager.bx-default-pager a.active {
+.bx-wrapper .bx-pager.bx-default-pager a.active,
+.bx-wrapper .bx-pager.bx-default-pager a:focus {
 	background: #000;
 }
-
-/* DIRECTION CONTROLS (NEXT / PREV) */
-
+.bx-wrapper .bx-pager-item,
+.bx-wrapper .bx-controls-auto .bx-controls-auto-item {
+	display: inline-block;
+	vertical-align: bottom;
+	*zoom: 1;
+	*display: inline;
+}
+.bx-wrapper .bx-pager-item {
+	font-size: 0;
+	line-height: 0;
+}
+  /* DIRECTION CONTROLS (NEXT / PREV) */
 .bx-wrapper .bx-prev {
 	left: -12px;
 	cursor: pointer;
-	background: url(plugins/nodebb-plugin-recent-cards/static/bxslider/images/controls.png) no-repeat 0 -32px;
+	background: url('plugins/nodebb-plugin-recent-cards/static/bxslider/images/controls.png') no-repeat 0 -32px;
+}
+.bx-wrapper .bx-prev:hover,
+.bx-wrapper .bx-prev:focus {
+	background-position: 0 0;
 }
 
 .bx-wrapper .bx-next {
 	right: -10px;
 	cursor: pointer;
-	background: url(plugins/nodebb-plugin-recent-cards/static/bxslider/images/controls.png) no-repeat -43px -32px;
+	background: url('plugins/nodebb-plugin-recent-cards/static/bxslider/images/controls.png') no-repeat -43px -32px;
 }
-
-.bx-wrapper .bx-prev:hover {
-	background-position: 0 0;
-}
-
-.bx-wrapper .bx-next:hover {
+.bx-wrapper .bx-next:hover,
+.bx-wrapper .bx-next:focus {
 	background-position: -43px 0;
 }
 
@@ -128,17 +150,7 @@
 	width: 32px;
 	height: 32px;
 	text-indent: -9999px;
-	z-index: 2;
-	opacity: 0.5;
-	-webkit-transition: opacity 0.25s ease-out;
-	-moz-transition: opacity 0.25s ease-out;
-	-ms-transition: opacity 0.25s ease-out;
-	-o-transition: opacity 0.25s ease-out;
-	transition: opacity 0.25s ease-out;
-}
-
-.bx-wrapper:hover .bx-controls-direction a {
-	opacity: 1;
+	z-index: 9999;
 }
 
 .bx-wrapper .bx-controls-direction a.disabled {
@@ -157,12 +169,13 @@
 	width: 10px;
 	height: 11px;
 	outline: 0;
-	background: url(plugins/nodebb-plugin-recent-cards/static/bxslider/images/controls.png) -86px -11px no-repeat;
+	background: url('plugins/nodebb-plugin-recent-cards/static/bxslider/images/controls.png') -86px -11px no-repeat;
 	margin: 0 3px;
 }
 
 .bx-wrapper .bx-controls-auto .bx-start:hover,
-.bx-wrapper .bx-controls-auto .bx-start.active {
+.bx-wrapper .bx-controls-auto .bx-start.active,
+.bx-wrapper .bx-controls-auto .bx-start:focus {
 	background-position: -86px 0;
 }
 
@@ -172,12 +185,13 @@
 	width: 9px;
 	height: 11px;
 	outline: 0;
-	background: url(plugins/nodebb-plugin-recent-cards/static/bxslider/images/controls.png) -86px -44px no-repeat;
+	background: url('plugins/nodebb-plugin-recent-cards/static/bxslider/images/controls.png') -86px -44px no-repeat;
 	margin: 0 3px;
 }
 
 .bx-wrapper .bx-controls-auto .bx-stop:hover,
-.bx-wrapper .bx-controls-auto .bx-stop.active {
+.bx-wrapper .bx-controls-auto .bx-stop.active,
+.bx-wrapper .bx-controls-auto .bx-stop:focus {
 	background-position: -86px -33px;
 }
 
@@ -199,7 +213,7 @@
 	position: absolute;
 	bottom: 0;
 	left: 0;
-	background: #666\9;
+	background: #666;
 	background: rgba(80, 80, 80, 0.75);
 	width: 100%;
 }

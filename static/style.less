@@ -1,77 +1,76 @@
 .recent-cards {
 	list-style-type: none;
 	padding: 0;
+	.recent-card-container {
+		height: 250px;
 
-	.recent-card {
-		.pointer;
-		height: 110px;
-		width: 100%;
-		padding: 10px;
-		position: relative;
-
-		margin-bottom: 10px;
-
-		.bg {
-			position: absolute;
-			top: 0;
-			left: 0;
+		.recent-card {
+			height: 180px;
 			width: 100%;
-			height: 100%;
-			background-position: 50% 50%;
-			background-size: cover;
+			padding: 10px;
+			position: relative;
+			border: 1px solid #eeeeee;
+			border-radius: 5px;
 
-			&:hover {
-				filter: brightness(115%);
-				-webkit-filter: brightness(115%);
+			margin-bottom: 10px;
+
+			.bg {
+				&:hover {
+					filter: brightness(115%);
+					-webkit-filter: brightness(115%);
+				}
 			}
-		}
 
-		.topic-info {
-			position: absolute;
-			top: 10px;
-			left: 10px;
-			pointer-events: none;
-			padding-right: 15px;
+			.topic-info {
+				margin-left: 35px;
+				padding-right: 15px;
 
-			width: 100%;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			overflow: hidden;
-
-			.description {
-				width: 100%;
 				text-overflow: ellipsis;
 				white-space: nowrap;
 				overflow: hidden;
+				h4 {
+					margin-top: 0px;
+				}
+				p {
+					max-width: 200px;
+				}
+				.description {
+					width: 100%;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					overflow: hidden;
 
-				font-size: 11px;
+					font-size: 11px;
+				}
 			}
-		}
 
-		.post-count {
-			position: absolute;
-			bottom: 7px;
-			right: 10px;
-			pointer-events: none;
-		}
+			.category-item {
+				small {
+					color: @gray-light;
+				}
+			}
 
-		.icon {
-			position: absolute;
-			bottom: 5px;
-			left: 10px;
-			pointer-events: none;
+			.post-count {
+				position: absolute;
+				bottom: 7px;
+				right: 10px;
+				pointer-events: none;
+			}
 
-			width: 80%;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			overflow: visible;
-
-			font-size: 20px;
+			.icon {
+				min-width: 23px;
+				min-height: 23px;
+				font-size: 10px;
+				line-height: 12px;
+				padding: 5px;
+				margin-right: 5px;
+				border-radius: 50%;
+			}
 		}
 	}
 }
 
 .recent-cards.carousel-mode {
-	max-height: 110px;
+	max-height: 180px;
 	overflow: hidden;
 }
