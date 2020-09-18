@@ -1,15 +1,16 @@
 "use strict";
 
-var nconf = require.main.require('nconf');
-var validator = require.main.require('validator');
-var topics = require.main.require('./src/topics');
-var settings = require.main.require('./src/settings');
-var groups = require.main.require('./src/groups');
-var socketAdmin = require.main.require('./src/socket.io/admin');
-var defaultSettings = { title: 'Recent Topics', opacity: '1.0', textShadow: 'none', enableCarousel: 0, enableCarouselPagination: 0 };
+const nconf = require.main.require('nconf');
+const validator = require.main.require('validator');
+const db = require.main.require('./src/database');
+const topics = require.main.require('./src/topics');
+const settings = require.main.require('./src/settings');
+const groups = require.main.require('./src/groups');
+const socketAdmin = require.main.require('./src/socket.io/admin');
+const defaultSettings = { title: 'Recent Topics', opacity: '1.0', textShadow: 'none', enableCarousel: 0, enableCarouselPagination: 0 };
 
-var plugin = module.exports;
-var app;
+const plugin = module.exports;
+let app;
 
 plugin.init = function(params, callback) {
 	app = params.app;
@@ -108,6 +109,11 @@ function testRenderExternal(req, res, next) {
 }
 
 async function getTopics(uid, filterCid) {
+	async function getTopicsFromSet(set, start, stop) {
+		const tids = await db.getSortedSetRevRange(set, start, stop);
+		const topicsData = await topics.getTopics(tids, { uid: uid, teaserPost: 'first' });
+		return { topics: topicsData };
+	}
 	filterCid = parseInt(filterCid, 10);
 	let topicsData = { topics: [] };
 	if (plugin.settings.get('groupName')) {
@@ -133,9 +139,9 @@ async function getTopics(uid, filterCid) {
 		});
 	} else {
 		if (filterCid) {
-			topicsData = await topics.getTopicsFromSet('cid:' + filterCid + ':tids:lastposttime', uid, 0, 19);
+			topicsData = await getTopicsFromSet('cid:' + filterCid + ':tids:lastposttime', 0, 19);
 		} else {
-			topicsData = await topics.getTopicsFromSet('topics:recent', uid, 0, 19);
+			topicsData = await getTopicsFromSet('topics:recent', 0, 19);
 		}
 	}
 

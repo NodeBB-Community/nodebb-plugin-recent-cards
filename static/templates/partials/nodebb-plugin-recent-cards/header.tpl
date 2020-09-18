@@ -14,7 +14,7 @@
 					</div>
 					<div class="topic-info">
 						<h4><a href="{config.relative}/topic/{topics.slug}{{{ if topics.bookmark }}}/{topics.bookmark}{{{ end }}}">{topics.title}</a></h4>
-						<p>some content here from post some content here from post. asdas dasd. Lorem ipsum color si amet, some more test</p>
+						<p>{topics.teaser.content}</p>
 					</div>
 				</div>
 				<div class="footer clearfix">
