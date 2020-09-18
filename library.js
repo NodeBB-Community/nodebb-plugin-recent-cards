@@ -7,12 +7,18 @@ const topics = require.main.require('./src/topics');
 const settings = require.main.require('./src/settings');
 const groups = require.main.require('./src/groups');
 const socketAdmin = require.main.require('./src/socket.io/admin');
-const defaultSettings = { title: 'Recent Topics', opacity: '1.0', textShadow: 'none', enableCarousel: 0, enableCarouselPagination: 0 };
+const defaultSettings = {
+	title: 'Recent Topics',
+	opacity: '1.0',
+	textShadow: 'none',
+	enableCarousel: 0,
+	enableCarouselPagination: 0
+};
 
 const plugin = module.exports;
 let app;
 
-plugin.init = function(params, callback) {
+plugin.init = async function(params) {
 	app = params.app;
 	const router = params.router;
 	var middleware = params.middleware;
@@ -29,34 +35,26 @@ plugin.init = function(params, callback) {
 	socketAdmin.settings.syncRecentCards = function () {
 		plugin.settings.sync();
 	};
-
-	callback();
 };
 
-plugin.addAdminNavigation = function(header, callback) {
+plugin.addAdminNavigation = async function(header) {
 	header.plugins.push({
 		route: '/plugins/recentcards',
 		icon: 'fa-tint',
 		name: 'Recent Cards'
 	});
-
-	callback(null, header);
+	return header;
 };
 
-plugin.defineWidgets = function(widgets, callback) {
-	var widget = {
+plugin.defineWidgets = async function(widgets) {
+	const widget = {
 		widget: "recentCards",
 		name: "Recent Cards",
 		description: "Recent topics carousel",
 	};
-	app.render('admin/plugins/nodebb-plugin-recent-cards/widget', {}, function (err, html) {
-		if (err) {
-			return callback(err);
-		}
-		widget.content = html;
-		widgets.push(widget);
-		callback(null, widgets);
-	});
+	widget.content = await app.renderAsync('admin/plugins/nodebb-plugin-recent-cards/widget', {});
+	widgets.push(widget);
+	return widgets;
 };
 
 plugin.getConfig = async function (config) {
@@ -166,24 +164,20 @@ async function getTopics(uid, filterCid) {
 	return finalTopics;
 };
 
-function renderAdmin(req, res, next) {
-	var list = [];
+async function renderAdmin(req, res, next) {
+	const list = [];
 
-	groups.getGroups('groups:createtime', 0, -1, function(err, groupsData) {
-		if (err) {
-			return next(err);
+	const groupsData = await groups.getGroups('groups:createtime', 0, -1);
+	groupsData.forEach(function(group) {
+		if (groups.isPrivilegeGroup(group)) {
+			return;
 		}
-		groupsData.forEach(function(group) {
-			if (groups.isPrivilegeGroup(group)) {
-				return;
-			}
 
-			list.push({
-				name: group,
-				value: validator.escape(String(group)),
-			});
+		list.push({
+			name: group,
+			value: validator.escape(String(group)),
 		});
-
-		res.render('admin/plugins/recentcards', { groups: list });
 	});
+
+	res.render('admin/plugins/recentcards', { groups: list });
 }
