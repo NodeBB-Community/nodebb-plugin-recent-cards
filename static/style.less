@@ -2,8 +2,6 @@
 	list-style-type: none;
 	padding: 0;
 	.recent-card-container {
-		height: 250px;
-
 		.recent-card {
 			height: 180px;
 			width: 100%;
@@ -22,6 +20,7 @@
 			}
 
 			.topic-info {
+				height: 120px;
 				margin-left: 35px;
 				padding-right: 15px;
 
@@ -33,6 +32,7 @@
 				}
 				p {
 					max-width: 200px;
+					white-space: normal;
 				}
 				.description {
 					width: 100%;
@@ -43,10 +43,10 @@
 					font-size: 11px;
 				}
 			}
-
-			.category-item {
-				small {
+			.footer {
+				.category-item a, .timeago {
 					color: @gray-light;
+					font-size: 85%;
 				}
 			}
 

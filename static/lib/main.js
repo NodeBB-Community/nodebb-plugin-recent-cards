@@ -9,6 +9,7 @@ $(document).ready(function(){
 					slideWidth: 290,
 					minSlides: 1,
 					maxSlides: 4,
+					touchEnabled: false, // breaks ajaxify on latest nodebb
 					pager: config.recentCards.enableCarouselPagination ? true: false,
 				});
 			} else {

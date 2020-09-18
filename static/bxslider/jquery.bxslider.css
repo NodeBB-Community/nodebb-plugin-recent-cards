@@ -79,6 +79,7 @@ ul.bxslider {
 	top: 0;
 	left: 0;
 	z-index: 2000;
+	display: none;
 }
 
 /* PAGER */

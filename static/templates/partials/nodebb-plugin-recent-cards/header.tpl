@@ -17,17 +17,17 @@
 						<p>some content here from post some content here from post\nasdasdasd</p>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-lg-12">
+				<div class="footer clearfix">
+					<div>
 						<span class="category-item pull-left">
 							{{{ if topics.category.icon }}}
 							<div role="presentation" class="icon pull-left" style="{{{ if topics.category.bgColor }}}background-color: {topics.category.bgColor};{{{end}}}; {{{ if topics.category.color}}}color: {topics.category.color};{{{end}}}">
 								<i class="fa fa-fw {topics.category.icon}"></i>
 							</div>
 							{{{ end }}}
-							<a href="{config.relative_path}/category/{topics.category.slug}"><small>{topics.category.name}</small></a>
+							<a href="{config.relative_path}/category/{topics.category.slug}">{topics.category.name}</a>
 						</span>
-						<small class="pull-right"><span class="timeago" title="{{{ if topics.timestampISO }}}{topics.timestampISO}{{{ end }}}"></span></small>
+						<span class="pull-right"><span class="timeago" title="{{{ if topics.timestampISO }}}{topics.timestampISO}{{{ end }}}"></span></span>
 					</div>
 				</div>
 			</div>
