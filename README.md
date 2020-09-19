@@ -1,6 +1,6 @@
 # Recent Cards plugin for NodeBB's Persona Theme
 
-This is an addon for the Persona theme which adds a recent cards component to the header of the homepage. It's inspired by the previous default theme, Lavender, which used Modern UI styling for the category layout.
+This is a plugin that creates a new widget that can be placed on various widget areas. It's inspired by the previous default theme, Lavender, which used Modern UI styling for the category layout.
 
 
 ## Installation
@@ -9,7 +9,7 @@ Install via one-click activation in the Admin Control Panel or run the following
 
     npm i nodebb-plugin-recent-cards
 
-Then head over to Admin -> Extend -> Widgets and place the widget. Additional settings can be found at Admin -> Plugins -> Recent Cards.
+Then head over to Admin -> Extend -> Widgets and place the widget. Additional settings can be found at Admin -> Plugins -> Recent Cards and under the individual widget settings.
 
 ## Screenshot
 
