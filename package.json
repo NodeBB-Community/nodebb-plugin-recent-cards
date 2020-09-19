@@ -23,6 +23,11 @@
     "url": "https://github.com/psychobunny/nodebb-plugin-recent-cards/issues"
   },
   "readmeFilename": "README.md",
+  "devDependencies": {
+    "eslint": "7.6.0",
+    "eslint-config-airbnb-base": "14.1.0",
+    "eslint-plugin-import": "2.21.1"
+  },
   "nbbpm": {
     "compatibility": "^1.13.2"
   }

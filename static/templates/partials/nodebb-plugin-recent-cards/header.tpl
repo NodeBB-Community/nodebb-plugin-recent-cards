@@ -1,12 +1,12 @@
 {{{ if topics.length }}}
 <div class="recent-cards-plugin preventSlideout">
-	<ul class="categories">
-		<p>{config.recentCards.title}</p>
-	</ul>
+	{{{ if title }}}
+	<h5>{title}</h5>
+	{{{ end }}}
 
 	<ul class="row recent-cards carousel-mode" itemscope itemtype="http://www.schema.org/ItemList">
 		{{{ each topics }}}
-		<li class="col-md-3 col-sm-6 col-xs-12 recent-card-container" data-cid="{topics.category.cid}" style="text-shadow:{config.recentCards.textShadow};">
+		<li class="col-md-3 col-sm-6 col-xs-12 recent-card-container" data-cid="{topics.category.cid}">
 			<div class="recent-card">
 				<div class="clearfix">
 					<div class="pull-left">
