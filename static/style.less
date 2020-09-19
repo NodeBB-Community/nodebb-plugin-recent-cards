@@ -35,9 +35,20 @@
 				}
 			}
 			.footer {
-				.category-item a, .timeago {
+				.category-item a {
 					color: @gray-light;
 					font-size: 85%;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					width: 120px;
+					display: block;
+					overflow: hidden;
+					margin-top: 2px;
+				}
+				.timeago {
+					color: @gray-light;
+					font-size: 65%;
+
 				}
 			}
 
