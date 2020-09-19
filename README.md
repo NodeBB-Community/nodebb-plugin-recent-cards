@@ -13,7 +13,7 @@ Then head over to Admin -> Extend -> Widgets and place the widget. Additional se
 
 ## Screenshot
 
-![](http://i.imgur.com/V993A2v.png)
+![](https://i.imgur.com/r3NKmY1.jpg)
 
 # Standalone installation for external websites (Advanced)
 
