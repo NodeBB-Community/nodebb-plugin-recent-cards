@@ -5,16 +5,6 @@
 			<div class="panel-body">
 				<form role="form" id="recentcards">
 					<div class="form-group">
-						<label for="popularTerm">Optional: Select a term to show popular topics</label>
-						<select class="form-control" id="popularTerm" name="popularTerm" data-key="popularTerm">
-							<option value="">Disabled</option>
-							<option value="day">Day</option>
-							<option value="week">Week</option>
-							<option value="month">Month</option>
-						</select>
-					</div>
-
-					<div class="form-group">
 						<div class="checkbox">
 							<label for="enableCarousel">
 								<input type="checkbox" data-key="enableCarousel" id="enableCarousel" name="enableCarousel" />

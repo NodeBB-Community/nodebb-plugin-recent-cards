@@ -77,12 +77,7 @@ plugin.getConfig = async function (config) {
 };
 
 plugin.renderWidget = async function (widget) {
-	const cid = parseInt(widget.data.cid || widget.templateData.cid || 0, 10);
-	let fromGroups = widget.data.fromGroups || [];
-	if (fromGroups && !Array.isArray(fromGroups)) {
-		fromGroups = [fromGroups];
-	}
-	const topics = await getTopics(widget.uid, cid, fromGroups);
+	const topics = await getTopics(widget);
 
 	widget.html = await app.renderAsync('partials/nodebb-plugin-recent-cards/header', {
 		topics: topics,
@@ -93,16 +88,23 @@ plugin.renderWidget = async function (widget) {
 };
 
 
-async function getTopics(uid, filterCid, fromGroups) {
+async function getTopics(widget) {
 	async function getTopicsFromSet(set, start, stop) {
 		const tids = await db.getSortedSetRevRange(set, start, stop);
-		const topicsData = await topics.getTopics(tids, { uid: uid, teaserPost: 'first' });
+		const topicsData = await topics.getTopics(tids, { uid: widget.uid, teaserPost: 'first' });
 		return { topics: topicsData };
 	}
 
 	let topicsData = {
 		topics: [],
 	};
+
+	const filterCid = parseInt(widget.data.cid || widget.templateData.cid || 0, 10);
+	widget.data.sort = widget.data.sort || 'recent';
+	let fromGroups = widget.data.fromGroups || [];
+	if (fromGroups && !Array.isArray(fromGroups)) {
+		fromGroups = [fromGroups];
+	}
 
 	if (fromGroups.length) {
 		const uids = _.uniq(_.flatten(await groups.getMembersOfGroups(fromGroups)));
@@ -113,19 +115,24 @@ async function getTopics(uid, filterCid, fromGroups) {
 			return 'uid:' + uid + ':topics';
 		});
 		topicsData = await getTopicsFromSet(sets, 0, 19);
-	} else if (plugin.settings.get('popularTerm')) {
-		topicsData = await topics.getSortedTopics({
-			uid: uid,
-			start: 0,
-			stop: 19,
-			term: plugin.settings.get('popularTerm'),
-			sort: 'posts',
-			cids: filterCid,
-		});
+		if (widget.data.sort !== 'recent') {
+			topicsData.topics.sort((t1, t2) => {
+				if (widget.data.sort === 'votes') {
+					return t2.votes - t1.votes;
+				} else if (widget.data.sort === 'posts') {
+					return t2.postcount - t1.postcount;
+				}
+				return 0;
+			});
+		}
 	} else if (filterCid) {
-		topicsData = await getTopicsFromSet('cid:' + filterCid + ':tids:lastposttime', 0, 19);
+		if (widget.data.sort === 'recent') {
+			topicsData = await getTopicsFromSet('cid:' + filterCid + ':tids:lastposttime', 0, 19);
+		} else {
+			topicsData = await getTopicsFromSet('cid:' + filterCid + ':tids:' + widget.data.sort, 0, 19);
+		}
 	} else {
-		topicsData = await getTopicsFromSet('topics:recent', 0, 19);
+		topicsData = await getTopicsFromSet('topics:' + widget.data.sort, 0, 19);
 	}
 
 	let i = 0;
@@ -134,7 +141,7 @@ async function getTopics(uid, filterCid, fromGroups) {
 
 	if (!plugin.settings.get('enableCarousel')) {
 		while (finalTopics.length < 4 && i < topicsData.topics.length) {
-			var cid = parseInt(topicsData.topics[i].cid, 10);
+			const cid = parseInt(topicsData.topics[i].cid, 10);
 
 			if (filterCid || !cids.includes(cid)) {
 				cids.push(cid);
@@ -148,7 +155,6 @@ async function getTopics(uid, filterCid, fromGroups) {
 	}
 	return finalTopics;
 }
-
 
 function renderExternal(req, res, next) {
 	plugin.getCategories({
