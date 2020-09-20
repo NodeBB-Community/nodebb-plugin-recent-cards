@@ -163,7 +163,6 @@ async function getTopics(widget) {
 			filterCids.map(cid => 'cid:' + cid + ':tids' + searchSuffix), 0, 19
 		);
 	} else {
-		console.log(widget.data.sort);
 		const map = {
 			votes: 'topics:votes',
 			posts: 'topics:posts',
