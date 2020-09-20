@@ -8,13 +8,17 @@
 		{{{ each topics }}}
 		<li class="col-md-3 col-sm-6 col-xs-12 recent-card-container" data-cid="{topics.category.cid}">
 			<div class="recent-card">
-				<div class="clearfix">
-					<div class="pull-left">
-						<a href="{config.relative_path}/user/{topics.user.userslug}">{buildAvatar(topics.user, "sm", true)}</a>
-					</div>
-					<div class="topic-info">
+				<div class="recent-card-body">
+					<div>
 						<h4><a href="{config.relative}/topic/{topics.slug}{{{ if topics.bookmark }}}/{topics.bookmark}{{{ end }}}">{topics.title}</a></h4>
-						<p>{topics.teaser.content}</p>
+					</div>
+					<div class="clearfix">
+						<div class="pull-left">
+							<a href="{config.relative_path}/user/{topics.user.userslug}">{buildAvatar(topics.user, "sm", true)}</a>
+						</div>
+						<div class="topic-info">
+							<p>{topics.teaser.content}</p>
+						</div>
 					</div>
 				</div>
 				<div class="footer clearfix">
