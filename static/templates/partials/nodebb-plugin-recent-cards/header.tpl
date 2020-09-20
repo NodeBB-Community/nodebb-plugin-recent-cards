@@ -33,16 +33,16 @@
 						</span>
 
 						{{{ if sorts.create}}}
-						<span class="pull-right"><span class="timeago" title="{{{ if topics.timestampISO }}}{topics.timestampISO}{{{ end }}}"></span></span>
+						<span class="pull-right"><span class="sort-info timeago" title="{{{ if topics.timestampISO }}}{topics.timestampISO}{{{ end }}}"></span></span>
 						{{{ end}}}
 						{{{ if sorts.recent }}}
-						<span class="pull-right"><span class="timeago" title="{{{ if topics.lastposttimeISO }}}{topics.lastposttimeISO}{{{ end }}}"></span></span>
+						<span class="pull-right"><span class="sort-info timeago" title="{{{ if topics.lastposttimeISO }}}{topics.lastposttimeISO}{{{ end }}}"></span></span>
 						{{{ end }}}
 						{{{ if sorts.posts }}}
-						<span class="pull-right"><span>[[global:x-posts, {topics.postcount}]]</span></span>
+						<span class="pull-right"><span class="sort-info">[[global:x-posts, {topics.postcount}]]</span></span>
 						{{{ end }}}
 						{{{ if sorts.votes }}}
-						<span class="pull-right"><span>[[global:x-votes, {topics.votes}]]</span></span>
+						<span class="pull-right"><span class="sort-info">[[global:x-votes, {topics.votes}]]</span></span>
 						{{{ end }}}
 					</div>
 				</div>
