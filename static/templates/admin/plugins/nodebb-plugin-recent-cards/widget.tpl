@@ -17,9 +17,16 @@
 	<!-- END groups -->
 </select>
 
+<label for="teaserPost">Teaser Post</label>
+<select class="form-control" id="teaserPost" name="teaserPost">
+	<option value="first">First Post</option>
+	<option value="last-post">Last Post</option>
+</select>
+
 <label for="sortBy">Sort Topics</label>
 <select class="form-control" id="sortBy" name="sort">
-	<option value="recent">Recent</option>
-	<option value="posts">Posts</option>
-	<option value="votes">Votes</option>
+	<option value="create">Recently Created</option>
+	<option value="recent">Recently Replied</option>
+	<option value="posts">Most Posts</option>
+	<option value="votes">Most Votes</option>
 </select>

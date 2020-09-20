@@ -82,10 +82,19 @@ plugin.renderWidget = async function (widget) {
 	}
 	const topics = await getTopics(widget);
 
+	const sort = widget.data.sort || 'recent';
+	const sorts = {
+		create: sort === 'create',
+		recent: sort === 'recent',
+		posts: sort === 'posts',
+		votes: sort === 'votes',
+	};
+
 	widget.html = await app.renderAsync('partials/nodebb-plugin-recent-cards/header', {
 		topics: topics,
 		config: widget.templateData.config,
 		title: widget.data.title || '',
+		sorts: sorts,
 	});
 	return widget;
 };
@@ -103,7 +112,10 @@ function isVisibleInCategory(widget) {
 async function getTopics(widget) {
 	async function getTopicsFromSet(set, start, stop) {
 		const tids = await db.getSortedSetRevRange(set, start, stop);
-		const topicsData = await topics.getTopics(tids, { uid: widget.uid, teaserPost: 'first' });
+		const topicsData = await topics.getTopics(tids, {
+			uid: widget.uid,
+			teaserPost: widget.data.teaserPost || 'first',
+		});
 		return { topics: topicsData };
 	}
 
@@ -130,28 +142,35 @@ async function getTopics(widget) {
 			return 'uid:' + uid + ':topics';
 		});
 		topicsData = await getTopicsFromSet(sets.flat(), 0, 19);
-		if (widget.data.sort !== 'recent') {
-			topicsData.topics.sort((t1, t2) => {
-				if (widget.data.sort === 'votes') {
-					return t2.votes - t1.votes;
-				} else if (widget.data.sort === 'posts') {
-					return t2.postcount - t1.postcount;
-				}
-				return 0;
-			});
-		}
+		topicsData.topics.sort((t1, t2) => {
+			if (widget.data.sort === 'recent') {
+				return t2.lastposttime - t1.lastposttime;
+			} else if (widget.data.sort === 'votes') {
+				return t2.votes - t1.votes;
+			} else if (widget.data.sort === 'posts') {
+				return t2.postcount - t1.postcount;
+			}
+			return 0;
+		});
 	} else if (filterCids.length) {
+		let searchSuffix = '';
 		if (widget.data.sort === 'recent') {
-			topicsData = await getTopicsFromSet(
-				filterCids.map(cid => 'cid:' + cid + ':tids:lastposttime'), 0, 19
-			);
-		} else {
-			topicsData = await getTopicsFromSet(
-				filterCids.map(cid => 'cid:' + cid + ':tids:' + widget.data.sort), 0, 19
-			);
+			searchSuffix += ':lastposttime';
+		} else if (widget.data.sort === 'votes' || widget.data.sort === 'posts') {
+			searchSuffix += ':' + widget.data.sort;
 		}
+		topicsData = await getTopicsFromSet(
+			filterCids.map(cid => 'cid:' + cid + ':tids' + searchSuffix), 0, 19
+		);
 	} else {
-		topicsData = await getTopicsFromSet('topics:' + widget.data.sort, 0, 19);
+		console.log(widget.data.sort);
+		const map = {
+			votes: 'topics:votes',
+			posts: 'topics:posts',
+			recent: 'topics:recent',
+			create: 'topics:tid',
+		};
+		topicsData = await getTopicsFromSet(map[widget.data.sort], 0, 19);
 	}
 
 	let i = 0;

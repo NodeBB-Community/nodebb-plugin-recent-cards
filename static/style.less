@@ -35,21 +35,24 @@
 				}
 			}
 			.footer {
-				.category-item a {
+				.category-item a, .timeago {
 					color: @gray-light;
-					font-size: 85%;
 					white-space: nowrap;
 					text-overflow: ellipsis;
-					width: 120px;
 					display: block;
 					overflow: hidden;
+				}
+				.category-item a {
+					font-size: 85%;
+					width: 120px;
 					margin-top: 2px;
 					text-align: left;
 				}
 				.timeago {
-					color: @gray-light;
 					font-size: 65%;
-
+					width: 80px;
+					margin-top: 4px;
+					text-align: right;
 				}
 			}
 
