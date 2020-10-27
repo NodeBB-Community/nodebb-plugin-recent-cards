@@ -17,7 +17,7 @@
 							<a href="{config.relative_path}/user/{topics.teaser.user.userslug}">{buildAvatar(topics.teaser.user, "sm", true)}</a>
 						</div>
 						<div class="topic-info">
-							<p>{topics.teaser.content}</p>
+							{topics.teaser.content}
 						</div>
 					</div>
 				</div>
