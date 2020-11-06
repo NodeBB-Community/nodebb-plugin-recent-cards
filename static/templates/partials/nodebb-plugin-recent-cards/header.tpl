@@ -10,7 +10,7 @@
 			<div class="recent-card">
 				<div class="recent-card-body">
 					<div>
-						<h4><a href="{config.relative}/topic/{topics.slug}{{{ if topics.bookmark }}}/{topics.bookmark}{{{ end }}}">{topics.title}</a></h4>
+						<h4><a href="{config.relative_path}/topic/{topics.slug}{{{ if topics.bookmark }}}/{topics.bookmark}{{{ end }}}">{topics.title}</a></h4>
 					</div>
 					<div class="clearfix">
 						<div class="pull-left">
