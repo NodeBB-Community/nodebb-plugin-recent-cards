@@ -40,7 +40,6 @@ require(['settings'], function(settings) {
 
 	$('#save').click( function (event) {
 		settings.persist('recentcards', $('#recentcards'), function(){
-			socket.emit('admin.settings.syncRecentCards');
 			app.alertSuccess('Please restart your forum for changes to fully take effect.');
 		});
 	});

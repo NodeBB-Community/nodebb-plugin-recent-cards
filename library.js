@@ -29,10 +29,6 @@ plugin.init = async function (params) {
 	router.get('/admin/plugins/nodebb-plugin-recent-cards/tests/external', testRenderExternal);
 
 	plugin.settings = new settings('recentcards', '1.0.0', defaultSettings);
-
-	socketAdmin.settings.syncRecentCards = function () {
-		plugin.settings.sync();
-	};
 };
 
 plugin.addAdminNavigation = async function (header) {
