@@ -7,7 +7,6 @@ const db = require.main.require('./src/database');
 const topics = require.main.require('./src/topics');
 const settings = require.main.require('./src/settings');
 const groups = require.main.require('./src/groups');
-const socketAdmin = require.main.require('./src/socket.io/admin');
 const defaultSettings = {
 	enableCarousel: 0,
 	enableCarouselPagination: 0,
@@ -19,7 +18,7 @@ let app;
 plugin.init = async function (params) {
 	app = params.app;
 	const router = params.router;
-	var middleware = params.middleware;
+	const middleware = params.middleware;
 
 	router.get('/admin/plugins/recentcards', middleware.admin.buildHeader, renderAdmin);
 	router.get('/api/admin/plugins/recentcards', renderAdmin);
@@ -95,13 +94,13 @@ plugin.renderWidget = async function (widget) {
 	return widget;
 };
 
-function getCidsArray(widget, field) {
-	const cids = widget.data[field] || '';
-	return cids.split(',').map(c => parseInt(c, 10)).filter(Boolean);
+function getIdsArray(widget, field) {
+	const ids = String(widget.data[field] || '');
+	return ids.split(',').map(c => parseInt(c.trim(), 10)).filter(Boolean);
 }
 
 function isVisibleInCategory(widget) {
-	const cids = getCidsArray(widget, 'cid');
+	const cids = getIdsArray(widget, 'cid');
 	return !(cids.length && (widget.templateData.template.category || widget.templateData.template.topic) && !cids.includes(parseInt(widget.templateData.cid, 10)));
 }
 
@@ -118,7 +117,7 @@ async function getTopics(widget) {
 	let topicsData = {
 		topics: [],
 	};
-	let filterCids = getCidsArray(widget, 'topicsFromCid');
+	let filterCids = getIdsArray(widget, 'topicsFromCid');
 	if (!filterCids.length && widget.templateData.cid) {
 		filterCids = [parseInt(widget.templateData.cid, 10)];
 	}
@@ -128,8 +127,14 @@ async function getTopics(widget) {
 	if (fromGroups && !Array.isArray(fromGroups)) {
 		fromGroups = [fromGroups];
 	}
-
-	if (fromGroups.length) {
+	// hard coded to show these topic tids only
+	const topicsTids = getIdsArray(widget, 'topicsTids');
+	if (topicsTids.length) {
+		topicsData.topics = await topics.getTopics(topicsTids, {
+			uid: widget.uid,
+			teaserPost: widget.data.teaserPost || 'first',
+		});
+	} else if (fromGroups.length) {
 		const uids = _.uniq(_.flatten(await groups.getMembersOfGroups(fromGroups)));
 		const sets = uids.map((uid) => {
 			if (filterCids.length) {

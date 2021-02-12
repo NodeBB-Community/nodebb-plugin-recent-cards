@@ -39,9 +39,7 @@ require(['settings'], function(settings) {
 	settings.sync('recentcards', $('#recentcards'));
 
 	$('#save').click( function (event) {
-		settings.persist('recentcards', $('#recentcards'), function(){
-			app.alertSuccess('Please restart your forum for changes to fully take effect.');
-		});
+		settings.persist('recentcards', $('#recentcards'));
 	});
 });
 </script>

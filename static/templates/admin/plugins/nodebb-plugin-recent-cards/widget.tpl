@@ -10,6 +10,12 @@
 </label>
 <input type="text" class="form-control" name="topicsFromCid" placeholder="0" />
 
+<label>
+	Topic IDs<br />
+	<small>Set the topic IDs you want to display in the widget (separated by commas). This overrides category IDs setting.</small>
+</label>
+<input type="text" class="form-control" name="topicsTids" placeholder="0" />
+
 <label>Select Groups to show topics from</label>
 <select name="fromGroups" class="form-control" multiple size="10">
 	<!-- BEGIN groups -->
