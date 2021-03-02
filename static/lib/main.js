@@ -10,8 +10,8 @@ $(document).ready(function () {
 			if (config.recentCards && config.recentCards.enableCarousel) {
 				recentCards.bxSlider({
 					slideWidth: 290,
-					minSlides: 1,
-					maxSlides: 4,
+					minSlides: config.recentCards.maxSlides || 1,
+					maxSlides: config.recentCards.maxSlides || 4,
 					touchEnabled: false, // breaks ajaxify on latest nodebb
 					pager: !!config.recentCards.enableCarouselPagination,
 				});

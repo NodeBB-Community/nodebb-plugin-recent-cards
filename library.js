@@ -10,6 +10,8 @@ const groups = require.main.require('./src/groups');
 const defaultSettings = {
 	enableCarousel: 0,
 	enableCarouselPagination: 0,
+	minSlides: 1,
+	maxSlides: 4,
 };
 
 const plugin = module.exports;
@@ -67,6 +69,8 @@ plugin.getConfig = async function (config) {
 		textShadow: plugin.settings.get('shadow'),
 		enableCarousel: plugin.settings.get('enableCarousel'),
 		enableCarouselPagination: plugin.settings.get('enableCarouselPagination'),
+		minSlides: plugin.settings.get('minSlides'),
+		maxSlides: plugin.settings.get('maxSlides'),
 	};
 	return config;
 };
