@@ -98,13 +98,13 @@ plugin.renderWidget = async function (widget) {
 	return widget;
 };
 
-function getIdsArray(widget, field) {
-	const ids = String(widget.data[field] || '');
+function getIdsArray(data, field) {
+	const ids = String(data[field] || '');
 	return ids.split(',').map(c => parseInt(c.trim(), 10)).filter(Boolean);
 }
 
 function isVisibleInCategory(widget) {
-	const cids = getIdsArray(widget, 'cid');
+	const cids = getIdsArray(widget.data, 'cid');
 	return !(cids.length && (widget.templateData.template.category || widget.templateData.template.topic) && !cids.includes(parseInt(widget.templateData.cid, 10)));
 }
 
@@ -121,7 +121,7 @@ async function getTopics(widget) {
 	let topicsData = {
 		topics: [],
 	};
-	let filterCids = getIdsArray(widget, 'topicsFromCid');
+	let filterCids = getIdsArray(widget.data, 'topicsFromCid');
 	if (!filterCids.length && widget.templateData.cid) {
 		filterCids = [parseInt(widget.templateData.cid, 10)];
 	}
@@ -132,7 +132,7 @@ async function getTopics(widget) {
 		fromGroups = [fromGroups];
 	}
 	// hard coded to show these topic tids only
-	const topicsTids = getIdsArray(widget, 'topicsTids');
+	const topicsTids = getIdsArray(widget.data, 'topicsTids');
 	if (topicsTids.length) {
 		topicsData.topics = await topics.getTopics(topicsTids, {
 			uid: widget.uid,
@@ -199,20 +199,24 @@ async function getTopics(widget) {
 }
 
 function renderExternal(req, res, next) {
-	plugin.getCategories({
-		templateData: {},
-	}, function (err, data) {
-		if (err) {
-			return next(err);
-		}
+	try {
+		const topics = await getTopics({
+			uid: req.uid,
+			data: {
+				teaserPost: 'first',
+			},
+			templateData: {},
+		});
 
-		data.templateData.relative_url = data.relative_url;
-		data.templateData.config = {
-			relative_path: nconf.get('url'),
-		};
-
-		res.render('partials/nodebb-plugin-recent-cards/header', data.templateData);
-	});
+		res.render('partials/nodebb-plugin-recent-cards/header', {
+			topics: topics,
+			config: {
+				relative_path: nconf.get('url'),
+			}
+		});
+	} catch (err) {
+		next(err);
+	}
 }
 
 function renderExternalStyle(req, res) {
