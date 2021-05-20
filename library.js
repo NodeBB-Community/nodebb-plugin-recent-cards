@@ -198,7 +198,7 @@ async function getTopics(widget) {
 	return finalTopics;
 }
 
-function renderExternal(req, res, next) {
+async function renderExternal(req, res, next) {
 	try {
 		const topics = await getTopics({
 			uid: req.uid,
