@@ -25,7 +25,7 @@
 					<div>
 						<span class="category-item pull-left">
 							{{{ if topics.category.icon }}}
-							<div role="presentation" class="icon pull-left" style="{{{ if topics.category.bgColor }}}background-color: {topics.category.bgColor};{{{end}}}; {{{ if topics.category.color}}}color: {topics.category.color};{{{end}}}">
+							<div role="presentation" class="icon pull-left" style="{function.generateCategoryBackground, topics.category}">
 								<i class="fa fa-fw {topics.category.icon}"></i>
 							</div>
 							{{{ end }}}
