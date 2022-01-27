@@ -7,6 +7,8 @@ const db = require.main.require('./src/database');
 const topics = require.main.require('./src/topics');
 const settings = require.main.require('./src/settings');
 const groups = require.main.require('./src/groups');
+const user = require.main.require('./src/user');
+
 const defaultSettings = {
 	enableCarousel: 0,
 	enableCarouselPagination: 0,
@@ -19,8 +21,7 @@ let app;
 
 plugin.init = async function (params) {
 	app = params.app;
-	const router = params.router;
-	const middleware = params.middleware;
+	const { router, middleware } = params;
 
 	router.get('/admin/plugins/recentcards', middleware.admin.buildHeader, renderAdmin);
 	router.get('/api/admin/plugins/recentcards', renderAdmin);
@@ -45,7 +46,7 @@ plugin.defineWidgets = async function (widgets) {
 	const groupNames = await db.getSortedSetRevRange('groups:visible:createtime', 0, -1);
 	let groupsData = await groups.getGroupsData(groupNames);
 	groupsData = groupsData.filter(Boolean);
-	groupsData.forEach(function (group) {
+	groupsData.forEach((group) => {
 		group.name = validator.escape(String(group.name));
 	});
 
@@ -105,16 +106,21 @@ function getIdsArray(data, field) {
 
 function isVisibleInCategory(widget) {
 	const cids = getIdsArray(widget.data, 'cid');
-	return !(cids.length && (widget.templateData.template.category || widget.templateData.template.topic) && !cids.includes(parseInt(widget.templateData.cid, 10)));
+	return !(
+		cids.length &&
+		(widget.templateData.template.category || widget.templateData.template.topic) &&
+		!cids.includes(parseInt(widget.templateData.cid, 10))
+	);
 }
 
 async function getTopics(widget) {
 	async function getTopicsFromSet(set, start, stop) {
 		const tids = await db.getSortedSetRevRange(set, start, stop);
-		const topicsData = await topics.getTopics(tids, {
+		let topicsData = await topics.getTopics(tids, {
 			uid: widget.uid,
 			teaserPost: widget.data.teaserPost || 'first',
 		});
+		topicsData = await user.blocks.filter(widget.uid, topicsData);
 		return { topics: topicsData };
 	}
 
@@ -142,9 +148,9 @@ async function getTopics(widget) {
 		const uids = _.uniq(_.flatten(await groups.getMembersOfGroups(fromGroups)));
 		const sets = uids.map((uid) => {
 			if (filterCids.length) {
-				return filterCids.map(cid => 'cid:' + cid + ':uid:' + uid + ':tids');
+				return filterCids.map(cid => `cid:${cid}:uid:${uid}:tids`);
 			}
-			return 'uid:' + uid + ':topics';
+			return `uid:${uid}:topics`;
 		});
 		topicsData = await getTopicsFromSet(sets.flat(), 0, 19);
 		topicsData.topics.sort((t1, t2) => {
@@ -162,10 +168,10 @@ async function getTopics(widget) {
 		if (widget.data.sort === 'recent') {
 			searchSuffix += ':lastposttime';
 		} else if (widget.data.sort === 'votes' || widget.data.sort === 'posts') {
-			searchSuffix += ':' + widget.data.sort;
+			searchSuffix += `:${widget.data.sort}`;
 		}
 		topicsData = await getTopicsFromSet(
-			filterCids.map(cid => 'cid:' + cid + ':tids' + searchSuffix), 0, 19
+			filterCids.map(cid => `cid:${cid}:tids${searchSuffix}`), 0, 19
 		);
 	} else {
 		const map = {
@@ -212,7 +218,7 @@ async function renderExternal(req, res, next) {
 			topics: topics,
 			config: {
 				relative_path: nconf.get('url'),
-			}
+			},
 		});
 	} catch (err) {
 		next(err);
