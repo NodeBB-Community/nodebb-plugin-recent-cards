@@ -42,14 +42,3 @@
 		</div>
 	</div>
 </div>
-
-<script>
-require(['settings'], function(settings) {
-
-	settings.sync('recentcards', $('#recentcards'));
-
-	$('#save').click( function (event) {
-		settings.persist('recentcards', $('#recentcards'));
-	});
-});
-</script>

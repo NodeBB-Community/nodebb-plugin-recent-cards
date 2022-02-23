@@ -34,5 +34,8 @@
 		"static/bxslider/jquery.bxslider.min.js",
 		"static/lib/main.js"
 	],
+	"modules": {
+		"../admin/plugins/recentcards.js": "static/lib/admin.js"
+	},
 	"templates": "static/templates"
 }
