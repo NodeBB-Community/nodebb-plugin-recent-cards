@@ -48,6 +48,9 @@ ul.bxslider {
 	left: -5px;
 	background: none;
 
+	/* fix rtl issue, from https://stackoverflow.com/a/27636300/583363 */
+	direction: ltr;
+
 	/* fix other elements on the page moving (in Chrome) */
 	-webkit-transform: translateZ(0);
 }
