@@ -7,9 +7,6 @@
 			width: 100%;
 			padding: 10px;
 			position: relative;
-			border: 1px solid @well-border;
-			background-color: @well-bg;
-			border-radius: 5px;
 			margin-bottom: 10px;
 
 			.recent-card-body {
@@ -31,7 +28,7 @@
 			}
 			.footer {
 				.category-item a, .sort-info {
-					color: @gray-light;
+					color: $text-muted;
 					white-space: nowrap;
 					text-overflow: ellipsis;
 					display: block;

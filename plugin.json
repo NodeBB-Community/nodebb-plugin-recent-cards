@@ -24,8 +24,8 @@
 	"staticDirs": {
 		"static": "./static"
 	},
-	"less": [
-		"static/style.less"
+	"scss": [
+		"static/style.scss"
 	],
 	"css": [
 		"static/bxslider/jquery.bxslider.css"
