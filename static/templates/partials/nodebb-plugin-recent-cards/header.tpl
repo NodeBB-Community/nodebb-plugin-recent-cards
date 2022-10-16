@@ -6,7 +6,7 @@
 
 	<ul class="row recent-cards carousel-mode" itemscope itemtype="http://www.schema.org/ItemList">
 		{{{ each topics }}}
-		<li class="col-md-3 col-sm-6 col-xs-12 recent-card-container" data-cid="{topics.category.cid}">
+		<li class="col-md-3 col-sm-6 col-12 recent-card-container" data-cid="{topics.category.cid}">
 			<div class="recent-card card card-header border rounded mb-2 p-2">
 				<div class="recent-card-body">
 					<div>

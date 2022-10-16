@@ -9,7 +9,7 @@ $(document).ready(function () {
 		if (recentCards.length) {
 			if (config.recentCards && config.recentCards.enableCarousel) {
 				recentCards.bxSlider({
-					slideWidth: 290,
+					slideWidth: 325,
 					minSlides: config.recentCards.minSlides || 1,
 					maxSlides: config.recentCards.maxSlides || 4,
 					touchEnabled: false, // breaks ajaxify on latest nodebb
