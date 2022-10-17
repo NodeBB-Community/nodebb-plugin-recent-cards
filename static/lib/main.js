@@ -12,7 +12,7 @@ $(document).ready(function () {
 					slideWidth: 325,
 					minSlides: config.recentCards.minSlides || 1,
 					maxSlides: config.recentCards.maxSlides || 4,
-					touchEnabled: false, // breaks ajaxify on latest nodebb
+					touchEnabled: utils.isMobile(),
 					pager: !!config.recentCards.enableCarouselPagination,
 				});
 			} else {

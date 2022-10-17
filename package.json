@@ -24,9 +24,9 @@
   },
   "readmeFilename": "README.md",
   "devDependencies": {
-    "eslint": "7.6.0",
-    "eslint-config-airbnb-base": "14.1.0",
-    "eslint-plugin-import": "2.21.1"
+    "eslint": "8.23.1",
+    "eslint-config-nodebb": "0.1.1",
+    "eslint-plugin-import": "2.26.0"
   },
   "nbbpm": {
     "compatibility": "^3.0.0"
