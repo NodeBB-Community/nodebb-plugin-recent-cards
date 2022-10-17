@@ -95,6 +95,7 @@ plugin.renderWidget = async function (widget) {
 		config: widget.templateData.config,
 		title: widget.data.title || '',
 		sorts: sorts,
+		carouselMode: plugin.settings.get('enableCarousel'),
 	});
 	return widget;
 };

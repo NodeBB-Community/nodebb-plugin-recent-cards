@@ -28,10 +28,11 @@
 		"static/style.less"
 	],
 	"css": [
-		"static/bxslider/jquery.bxslider.css"
+		"static/slick/slick.css",
+		"static/slick/slick-theme.css"
 	],
 	"scripts": [
-		"static/bxslider/jquery.bxslider.min.js",
+		"static/slick/slick.min.js",
 		"static/lib/main.js"
 	],
 	"modules": {
