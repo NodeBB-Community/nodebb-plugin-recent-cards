@@ -20,11 +20,6 @@
 						</div>
 
 						<div class="mb-3">
-							<label for="minSlides">Minimum slides to show for carousel</label>
-							<input id="minSlides" type="text" class="form-control" placeholder="1" name="minSlides" data-key="minSlides">
-						</div>
-
-						<div class="mb-3">
 							<label for="maxSlides">Max slides to show for carousel</label>
 							<input id="maxSlides" type="text" class="form-control" placeholder="4" name="maxSlides" data-key="maxSlides">
 						</div>

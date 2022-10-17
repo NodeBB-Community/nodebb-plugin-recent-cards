@@ -4,9 +4,9 @@
 	<h5>{title}</h5>
 	{{{ end }}}
 
-	<ul class="row recent-cards carousel-mode" itemscope itemtype="http://www.schema.org/ItemList">
+	<ul class="{{{ if !carouselMode }}}row{{{ end }}} recent-cards carousel-mode list-unstyled p-0 overflow-hidden" itemscope itemtype="http://www.schema.org/ItemList">
 		{{{ each topics }}}
-		<li class="col-md-3 col-sm-6 col-12 recent-card-container" data-cid="{topics.category.cid}">
+		<li class="{{{ if !carouselMode }}}col-md-3 col-sm-6 col-12{{{ end }}} recent-card-container" data-cid="{topics.category.cid}">
 			<div class="recent-card card card-header border rounded mb-2 p-2">
 				<div class="recent-card-body">
 					<div>
