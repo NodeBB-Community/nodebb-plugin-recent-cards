@@ -24,9 +24,6 @@
 	"staticDirs": {
 		"static": "./static"
 	},
-	"scss": [
-		"static/style.scss"
-	],
 	"css": [
 		"static/slick/slick.css",
 		"static/slick/slick-theme.css"
