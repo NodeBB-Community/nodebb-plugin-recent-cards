@@ -16,7 +16,7 @@
 						<div class="me-2">
 							<a href="{config.relative_path}/user/{topics.teaser.user.userslug}">{buildAvatar(topics.teaser.user, "24px", true)}</a>
 						</div>
-						<div class="topic-info">
+						<div class="topic-info text-break">
 							{topics.teaser.content}
 						</div>
 					</div>
