@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-recent-cards",
-  "version": "3.1.2",
+  "version": "3.1.3",
   "description": "Add lavender-style cards of recent topics to Persona's category homepage",
   "main": "library.js",
   "repository": {
