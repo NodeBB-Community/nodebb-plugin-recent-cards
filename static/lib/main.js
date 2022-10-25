@@ -10,15 +10,11 @@ $(document).ready(function () {
 				const nextArrow = '<i class="fa fa-fw fa-chevron-right slick-next"></i>';
 				const prevArrow = '<i class="fa fa-fw fa-chevron-left slick-prev"></i>';
 				const slideCount = parseInt(config.recentCards.maxSlides, 10) || 4;
-				const slideMargin = 20;
+				const slideMargin = 16;
 				const env = utils.findBootstrapEnvironment();
 				if (['xxl', 'xl', 'lg'].includes(env)) {
 					$('.recent-card').css({
 						width: (recentCards.width() - ((slideCount - 1) * slideMargin)) / slideCount,
-					});
-				} else {
-					$('.recent-card').css({
-						width: 250,
 					});
 				}
 				recentCards.slick({

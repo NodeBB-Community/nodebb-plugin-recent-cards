@@ -4,10 +4,10 @@
 	<h5>{title}</h5>
 	{{{ end }}}
 
-	<ul class="{{{ if !carouselMode }}}row{{{ end }}} recent-cards carousel-mode list-unstyled p-0 overflow-hidden" itemscope itemtype="http://www.schema.org/ItemList" {{{ if carouselMode }}}style="max-height:210px;"{{{ end }}}>
+	<ul class="{{{ if !carouselMode }}}row{{{ else }}}d-flex gap-3{{{ end }}} recent-cards carousel-mode list-unstyled p-0 overflow-hidden" itemscope itemtype="http://www.schema.org/ItemList" {{{ if carouselMode }}}style="max-height:210px;"{{{ end }}}>
 		{{{ each topics }}}
 		<li class="{{{ if !carouselMode }}}col-md-3 col-sm-6 col-12{{{ end }}} recent-card-container" data-cid="{topics.category.cid}">
-			<div class="recent-card card card-header border rounded mb-2 p-2 position-relative" style="height: 210px;">
+			<div class="recent-card card card-header border rounded mb-2 p-2 position-relative d-inline-flex" style="width: 312px; height: 210px;">
 				<div class="recent-card-body h-100 overflow-hidden">
 					<div>
 						<h5 class="mt-0"><a href="{config.relative_path}/topic/{topics.slug}{{{ if topics.bookmark }}}/{topics.bookmark}{{{ end }}}">{topics.title}</a></h5>
