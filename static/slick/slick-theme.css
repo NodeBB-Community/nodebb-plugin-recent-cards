@@ -6,7 +6,7 @@
 
 /* Adding margin between slides */
 .slick-slide {
-    margin: 0 10px;
+    margin: 0 8px;
 }
 .slick-list {
 	margin: 0;
@@ -86,7 +86,7 @@
 
 .slick-next
 {
-    right: 0px;
+    right: 15px;
 }
 [data-dir='rtl'] .slick-next
 {
