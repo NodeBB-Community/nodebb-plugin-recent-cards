@@ -21,12 +21,12 @@
 						</div>
 					</div>
 				</div>
-				<div class="d-flex mt-3 justify-content-between align-items-center">
-					<span class="category-item text-truncate">
+				<div class="d-flex mt-3 justify-content-between align-items-center gap-2">
+					<span class="category-item small text-truncate">
 						{{{ if topics.category.icon }}}
 						{buildCategoryIcon(./category, "24px", "rounded-circle")}
 						{{{ end }}}
-						<a class="text-muted small" title="{./category.name}" href="{config.relative_path}/category/{./category.slug}">{./category.name}</a>
+						<a class="text-muted" title="{./category.name}" href="{config.relative_path}/category/{./category.slug}">{./category.name}</a>
 					</span>
 
 					{{{ if sorts.create}}}
