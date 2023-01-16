@@ -116,7 +116,8 @@ function isVisibleInCategory(widget) {
 
 async function getTopics(widget) {
 	async function getTopicsFromSet(set, start, stop) {
-		const tids = await db.getSortedSetRevRange(set, start, stop);
+		let tids = await db.getSortedSetRevRange(set, start, stop);
+		tids = await topics.filterNotIgnoredTids(tids, widget.uid);
 		let topicsData = await topics.getTopics(tids, {
 			uid: widget.uid,
 			teaserPost: widget.data.teaserPost || 'first',
@@ -175,13 +176,13 @@ async function getTopics(widget) {
 			filterCids.map(cid => `cid:${cid}:tids${searchSuffix}`), 0, 19
 		);
 	} else {
-		const map = {
-			votes: 'topics:votes',
-			posts: 'topics:posts',
-			recent: 'topics:recent',
-			create: 'topics:tid',
-		};
-		topicsData = await getTopicsFromSet(map[widget.data.sort], 0, 19);
+		topicsData = await topics.getSortedTopics({
+			uid: widget.uid,
+			start: 0,
+			stop: 19,
+			sort: widget.data.sort,
+			teaserPost: widget.data.teaserPost || 'first',
+		});
 	}
 
 	let i = 0;
