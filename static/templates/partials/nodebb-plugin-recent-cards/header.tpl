@@ -14,7 +14,7 @@
 					</div>
 					<div class="d-flex">
 						<div class="me-2">
-							<a href="{config.relative_path}/user/{topics.teaser.user.userslug}">{buildAvatar(topics.teaser.user, "24px", true)}</a>
+							<a class="text-decoration-none" href="{config.relative_path}/user/{topics.teaser.user.userslug}">{buildAvatar(topics.teaser.user, "24px", true, "avatar-tooltip")}</a>
 						</div>
 						<div class="topic-info text-break">
 							{topics.teaser.content}
