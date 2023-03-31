@@ -10,19 +10,19 @@
 			<div class="recent-card card card-header border rounded mb-2 p-2 position-relative d-inline-flex" style="width: 312px; height: 210px;">
 				<div class="recent-card-body h-100 overflow-hidden">
 					<div>
-						<h5 class="mt-0"><a href="{config.relative_path}/topic/{topics.slug}{{{ if topics.bookmark }}}/{topics.bookmark}{{{ end }}}">{topics.title}</a></h5>
+						<h6 class="mt-0 text-truncate"><a href="{config.relative_path}/topic/{topics.slug}{{{ if topics.bookmark }}}/{topics.bookmark}{{{ end }}}">{topics.title}</a></h6>
 					</div>
 					<div class="d-flex">
 						<div class="me-2">
 							<a class="text-decoration-none" href="{config.relative_path}/user/{topics.teaser.user.userslug}">{buildAvatar(topics.teaser.user, "24px", true, "avatar-tooltip")}</a>
 						</div>
-						<div class="topic-info text-break">
+						<div class="topic-info text-sm text-break">
 							{topics.teaser.content}
 						</div>
 					</div>
 				</div>
 				<div class="d-flex mt-3 justify-content-between align-items-center gap-2">
-					<span class="category-item small text-truncate">
+					<span class="category-item text-xs text-truncate">
 						{{{ if topics.category.icon }}}
 						{buildCategoryIcon(./category, "24px", "rounded-circle")}
 						{{{ end }}}
@@ -30,16 +30,16 @@
 					</span>
 
 					{{{ if sorts.create}}}
-					<span class="text-muted small text-truncate"><span class="sort-info timeago" title="{{{ if topics.timestampISO }}}{topics.timestampISO}{{{ end }}}"></span></span>
+					<span class="text-muted text-xs text-truncate"><span class="sort-info timeago" title="{{{ if topics.timestampISO }}}{topics.timestampISO}{{{ end }}}"></span></span>
 					{{{ end}}}
 					{{{ if sorts.recent }}}
-					<span class="text-muted small text-truncate"><span class="sort-info timeago" title="{{{ if topics.lastposttimeISO }}}{topics.lastposttimeISO}{{{ end }}}"></span></span>
+					<span class="text-muted text-xs text-truncate"><span class="sort-info timeago" title="{{{ if topics.lastposttimeISO }}}{topics.lastposttimeISO}{{{ end }}}"></span></span>
 					{{{ end }}}
 					{{{ if sorts.posts }}}
-					<span class="text-muted small text-truncate"><span class="sort-info">[[global:x-posts, {topics.postcount}]]</span></span>
+					<span class="text-muted text-xs text-truncate"><span class="sort-info">[[global:x-posts, {topics.postcount}]]</span></span>
 					{{{ end }}}
 					{{{ if sorts.votes }}}
-					<span class="text-muted small text-truncate"><span class="sort-info">[[global:x-votes, {topics.votes}]]</span></span>
+					<span class="text-muted text-xs text-truncate"><span class="sort-info">[[global:x-votes, {topics.votes}]]</span></span>
 					{{{ end }}}
 				</div>
 			</div>
