@@ -28,6 +28,9 @@
 		"static/slick/slick.css",
 		"static/slick/slick-theme.css"
 	],
+	"scss": [
+		"static/style.scss"
+	],
 	"scripts": [
 		"static/slick/slick.min.js",
 		"static/lib/main.js"

@@ -12,7 +12,7 @@
 					<div>
 						<h6 class="mt-0 text-truncate"><a href="{config.relative_path}/topic/{topics.slug}{{{ if topics.bookmark }}}/{topics.bookmark}{{{ end }}}">{topics.title}</a></h6>
 					</div>
-					<div class="d-flex" style="height: 9em;">
+					<div class="d-flex">
 						<div class="me-2">
 							<a class="text-decoration-none" href="{config.relative_path}/user/{topics.teaser.user.userslug}">{buildAvatar(topics.teaser.user, "24px", true, "avatar-tooltip")}</a>
 						</div>
