@@ -116,7 +116,7 @@ function isVisibleInCategory(widget) {
 
 async function getTopics(widget) {
 	async function getTopicsFromSet(set, start, stop) {
-		let tids = await db.getSortedSetRevRange(set, start, stop);
+		let tids = await db.getSortedSetRevRangeByScore(set, start, stop, Date.now(), '-inf');
 		tids = await topics.filterNotIgnoredTids(tids, widget.uid);
 		let topicsData = await topics.getTopics(tids, {
 			uid: widget.uid,
@@ -183,6 +183,8 @@ async function getTopics(widget) {
 			sort: widget.data.sort,
 			teaserPost: widget.data.teaserPost || 'first',
 		});
+		// filter out scheduled
+		topicsData.topics = topicsData.topics.filter(t => t && !t.scheduled);
 	}
 
 	let i = 0;
