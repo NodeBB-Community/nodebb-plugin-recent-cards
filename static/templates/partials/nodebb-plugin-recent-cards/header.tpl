@@ -4,9 +4,9 @@
 	<h5>{title}</h5>
 	{{{ end }}}
 
-	<ul class="{{{ if !carouselMode }}}row{{{ else }}}d-flex gap-3{{{ end }}} recent-cards carousel-mode list-unstyled mb-0 p-0 overflow-hidden" itemscope itemtype="http://www.schema.org/ItemList" {{{ if carouselMode }}}style=""{{{ end }}}>
+	<div class="{{{ if !carouselMode }}}row{{{ else }}}d-flex gap-3{{{ end }}} recent-cards carousel-mode overflow-hidden" itemscope itemtype="http://www.schema.org/ItemList" {{{ if carouselMode }}}style=""{{{ end }}}>
 		{{{ each topics }}}
-		<li class="{{{ if !carouselMode }}}col-lg-3 col-sm-6 col-12 overflow-hidden{{{ end }}} recent-card-container" data-cid="{topics.category.cid}">
+		<div class="{{{ if !carouselMode }}}col-lg-3 col-sm-6 col-12 overflow-hidden{{{ end }}} recent-card-container" data-cid="{topics.category.cid}">
 			<div class="recent-card card card-header border rounded mb-2 p-2 position-relative d-inline-flex {{{ if !carouselMode }}}w-100{{{ end }}}" {{{ if carouselMode }}}style="width: 312px;"{{{ end }}}>
 				<div class="recent-card-body h-100 overflow-hidden">
 					<div>
@@ -43,8 +43,8 @@
 					{{{ end }}}
 				</div>
 			</div>
-		</li>
+		</div>
 		{{{end}}}
-	</ul>
+	</div>
 </div>
 {{{end}}}
