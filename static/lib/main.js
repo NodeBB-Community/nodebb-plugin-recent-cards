@@ -7,8 +7,8 @@ $(document).ready(function () {
 		if (recentCards.length) {
 			if (config.recentCards && config.recentCards.enableCarousel) {
 				const rtl = $('html').attr('data-dir') === 'rtl';
-				const nextArrow = '<i class="fa fa-fw fa-chevron-right slick-next"></i>';
-				const prevArrow = '<i class="fa fa-fw fa-chevron-left slick-prev"></i>';
+				const nextArrow = `<i class="fa fa-fw fa-chevron-right ${rtl ? ' slick-prev' : ' slick-next'}"></i>`;
+				const prevArrow = `<i class="fa fa-fw fa-chevron-left ${rtl ? 'slick-next' : 'slick-prev'}"></i>`;
 				const slideCount = parseInt(config.recentCards.maxSlides, 10) || 4;
 				const slideMargin = 16;
 				const env = utils.findBootstrapEnvironment();
@@ -24,8 +24,8 @@ $(document).ready(function () {
 					rtl: rtl,
 					variableWidth: true,
 					dots: !!config.recentCards.enableCarouselPagination,
-					nextArrow: rtl ? prevArrow : nextArrow,
-					prevArrow: rtl ? nextArrow : prevArrow,
+					nextArrow: nextArrow,
+					prevArrow: prevArrow,
 					responsive: [{
 						breakpoint: 992, // md
 						settings: {
