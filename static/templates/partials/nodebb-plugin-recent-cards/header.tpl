@@ -10,7 +10,7 @@
 			<div class="recent-card card card-header border rounded mb-2 p-2 position-relative d-inline-flex {{{ if !carouselMode }}}w-100{{{ end }}}" {{{ if carouselMode }}}style="width: 312px;"{{{ end }}}>
 				<div class="recent-card-body h-100 overflow-hidden">
 					<div>
-						<h6 class="mt-0 text-truncate"><a href="{config.relative_path}/topic/{topics.slug}{{{ if topics.bookmark }}}/{topics.bookmark}{{{ end }}}">{topics.title}</a></h6>
+						<h6 class="topic-title mt-0 text-truncate"><a href="{config.relative_path}/topic/{topics.slug}{{{ if topics.bookmark }}}/{topics.bookmark}{{{ end }}}">{topics.title}</a></h6>
 					</div>
 					<div class="d-flex">
 						<div class="me-2">

@@ -94,6 +94,9 @@
 {
     display: none;
 }
+.slick-slide .topic-title img {
+    display: inline-block
+}
 .slick-slide.dragging img
 {
     pointer-events: none;
