@@ -21,10 +21,9 @@ let app;
 
 plugin.init = async function (params) {
 	app = params.app;
-	const { router, middleware } = params;
-
-	router.get('/admin/plugins/recentcards', middleware.admin.buildHeader, renderAdmin);
-	router.get('/api/admin/plugins/recentcards', renderAdmin);
+	const { router } = params;
+	const routeHelpers = require.main.require('./src/routes/helpers');
+	routeHelpers.setupAdminPageRoute(router, '/admin/plugins/recentcards', renderAdmin);
 
 	router.get('/plugins/nodebb-plugin-recent-cards/render', renderExternal);
 	router.get('/plugins/nodebb-plugin-recent-cards/render/style.css', renderExternalStyle);
@@ -242,5 +241,7 @@ function testRenderExternal(req, res) {
 }
 
 async function renderAdmin(req, res) {
-	res.render('admin/plugins/recentcards', { });
+	res.render('admin/plugins/recentcards', {
+		title: 'Recent Cards',
+	});
 }
