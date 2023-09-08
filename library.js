@@ -175,15 +175,20 @@ async function getTopics(widget) {
 			filterCids.map(cid => `cid:${cid}:tids${searchSuffix}`), 0, 19
 		);
 	} else {
-		topicsData = await topics.getSortedTopics({
-			uid: widget.uid,
-			start: 0,
-			stop: 19,
-			sort: widget.data.sort,
-			teaserPost: widget.data.teaserPost || 'first',
-		});
-		// filter out scheduled
-		topicsData.topics = topicsData.topics.filter(t => t && !t.scheduled);
+		let start = 0;
+		do {
+			// eslint-disable-next-line no-await-in-loop
+			topicsData = await topics.getSortedTopics({
+				uid: widget.uid,
+				start: start,
+				stop: start + 19,
+				sort: widget.data.sort,
+				teaserPost: widget.data.teaserPost || 'first',
+			});
+			// filter out scheduled
+			topicsData.topics = topicsData.topics.filter(t => t && !t.scheduled);
+			start += 20;
+		} while (!topicsData.topics.length);
 	}
 
 	let i = 0;
