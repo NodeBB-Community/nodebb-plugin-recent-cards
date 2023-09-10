@@ -178,17 +178,22 @@ async function getTopics(widget) {
 		let start = 0;
 		do {
 			// eslint-disable-next-line no-await-in-loop
-			topicsData = await topics.getSortedTopics({
+			const nextTopics = await topics.getSortedTopics({
 				uid: widget.uid,
 				start: start,
 				stop: start + 19,
 				sort: widget.data.sort,
 				teaserPost: widget.data.teaserPost || 'first',
 			});
+			if (!nextTopics.topics.length) {
+				break;
+			}
 			// filter out scheduled
-			topicsData.topics = topicsData.topics.filter(t => t && !t.scheduled);
+			nextTopics.topics = nextTopics.topics.filter(t => t && !t.scheduled);
+			topicsData.topics.push(...nextTopics.topics);
 			start += 20;
-		} while (!topicsData.topics.length);
+		} while (topicsData.topics.length < 20);
+		topicsData.topics = topicsData.topics.slice(0, 20);
 	}
 
 	let i = 0;
