@@ -204,7 +204,7 @@ async function getTopics(widget) {
 		while (finalTopics.length < 4 && i < topicsData.topics.length) {
 			const cid = parseInt(topicsData.topics[i].cid, 10);
 
-			if (filterCids.length || !cids.includes(cid)) {
+			if (filterCids.length || !cids.includes(cid) || topicsData.topics.length <= 4) {
 				cids.push(cid);
 				finalTopics.push(topicsData.topics[i]);
 			}
