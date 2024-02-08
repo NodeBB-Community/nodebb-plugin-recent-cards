@@ -8,7 +8,7 @@ $(document).ready(function () {
 		}
 		const translator = await app.require('translator');
 		const [nextTitle, prevTitle] = await translator.translateKeys([
-			'[[global:nextpage]]', '[[global:previouspage]]',
+			'[[global:pagination.nextpage]]', '[[global:pagination.previouspage]]',
 		], config.userLang);
 		if (!config.recentCards || !config.recentCards.enableCarousel) {
 			recentCards.removeClass('carousel-mode');
