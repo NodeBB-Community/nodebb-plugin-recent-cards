@@ -17,7 +17,11 @@
 							<a class="text-decoration-none" href="{config.relative_path}/user/{topics.teaser.user.userslug}">{buildAvatar(topics.teaser.user, "24px", true, "avatar-tooltip")}</a>
 						</div>
 						<div class="topic-info text-sm text-break">
+						{{{ if (./thumbs.length && (./teaser.pid == ./mainPid ))}}}
+							<a href="{config.relative_path}/post/{./mainPid}"><img src="{./thumbs.0.url}" class="mw-100" alt="[[topic:thumb-image]]"/></a>
+						{{{ else }}}
 							{topics.teaser.content}
+						{{{ end }}}
 						</div>
 					</div>
 				</div>
