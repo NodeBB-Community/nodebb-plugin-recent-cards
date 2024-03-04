@@ -182,7 +182,7 @@ async function getTopics(widget) {
 		let searchSuffix = '';
 		if (widget.data.sort === 'recent') {
 			searchSuffix += ':lastposttime';
-		} else if (widget.data.sort === 'votes' || widget.data.sort === 'posts') {
+		} else if (widget.data.sort === 'votes' || widget.data.sort === 'posts' || widget.data.sort === 'create') {
 			searchSuffix += `:${widget.data.sort}`;
 		}
 		topicsData = await getTopicsFromSet(
