@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 'use strict';
 
 const nconf = require.main.require('nconf');
@@ -114,15 +115,27 @@ function isVisibleInCategory(widget) {
 }
 
 async function getTopics(widget) {
-	async function getTopicsFromSet(set, start, stop) {
-		let tids = await db.getSortedSetRevRangeByScore(set, start, stop, Date.now(), '-inf');
-		tids = await topics.filterNotIgnoredTids(tids, widget.uid);
-		let topicsData = await topics.getTopics(tids, {
-			uid: widget.uid,
-			teaserPost: widget.data.teaserPost || 'first',
-		});
-		topicsData = await user.blocks.filter(widget.uid, topicsData);
-		return { topics: topicsData };
+	async function getTopicsFromSet(set) {
+		let start = 0;
+		const topicsData = [];
+
+		do {
+			let tids = await db.getSortedSetRevRangeByScore(set, start, 20, Date.now(), '-inf');
+			if (!tids.length) {
+				break;
+			}
+
+			tids = await topics.filterNotIgnoredTids(tids, widget.uid);
+			let nextTopics = await topics.getTopics(tids, {
+				uid: widget.uid,
+				teaserPost: widget.data.teaserPost || 'first',
+			});
+
+			nextTopics = await user.blocks.filter(widget.uid, nextTopics);
+			topicsData.push(...nextTopics);
+			start += 20;
+		} while (topicsData.length < 20);
+		return { topics: topicsData.slice(0, 20) };
 	}
 
 	let topicsData = {
@@ -153,7 +166,7 @@ async function getTopics(widget) {
 			}
 			return `uid:${uid}:topics`;
 		});
-		topicsData = await getTopicsFromSet(sets.flat(), 0, 19);
+		topicsData = await getTopicsFromSet(sets.flat());
 		topicsData.topics.sort((t1, t2) => {
 			if (widget.data.sort === 'recent') {
 				return t2.lastposttime - t1.lastposttime;
@@ -172,28 +185,16 @@ async function getTopics(widget) {
 			searchSuffix += `:${widget.data.sort}`;
 		}
 		topicsData = await getTopicsFromSet(
-			filterCids.map(cid => `cid:${cid}:tids${searchSuffix}`), 0, 19
+			filterCids.map(cid => `cid:${cid}:tids${searchSuffix}`)
 		);
 	} else {
-		let start = 0;
-		do {
-			// eslint-disable-next-line no-await-in-loop
-			const nextTopics = await topics.getSortedTopics({
-				uid: widget.uid,
-				start: start,
-				stop: start + 19,
-				sort: widget.data.sort,
-				teaserPost: widget.data.teaserPost || 'first',
-			});
-			if (!nextTopics.topics.length) {
-				break;
-			}
-			// filter out scheduled
-			nextTopics.topics = nextTopics.topics.filter(t => t && !t.scheduled);
-			topicsData.topics.push(...nextTopics.topics);
-			start += 20;
-		} while (topicsData.topics.length < 20);
-		topicsData.topics = topicsData.topics.slice(0, 20);
+		const map = {
+			votes: 'topics:votes',
+			posts: 'topics:posts',
+			recent: 'topics:recent',
+			create: 'topics:tid',
+		};
+		topicsData = await getTopicsFromSet(map[widget.data.sort]);
 	}
 
 	let i = 0;
