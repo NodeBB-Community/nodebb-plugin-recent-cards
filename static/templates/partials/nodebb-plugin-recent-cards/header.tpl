@@ -16,11 +16,12 @@
 						<div class="me-2">
 							<a class="text-decoration-none" href="{config.relative_path}/user/{topics.teaser.user.userslug}">{buildAvatar(topics.teaser.user, "24px", true, "avatar-tooltip")}</a>
 						</div>
-						<div class="topic-info text-sm text-break">
+						<div class="topic-info text-sm text-break" style="transform: rotate(0);">
 						{{{ if (./thumbs.length && (./teaser.pid == ./mainPid ))}}}
 							<a href="{config.relative_path}/post/{./mainPid}"><img src="{./thumbs.0.url}" class="mw-100" alt="[[topic:thumb-image]]"/></a>
 						{{{ else }}}
-							{topics.teaser.content}
+						<a href="{config.relative_path}/topic/{topics.slug}{{{ if topics.bookmark }}}/{topics.bookmark}{{{ end }}}" class="stretched-link"></a>
+						{topics.teaser.content}
 						{{{ end }}}
 						</div>
 					</div>
