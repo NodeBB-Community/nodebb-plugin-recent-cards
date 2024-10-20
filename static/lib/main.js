@@ -43,7 +43,7 @@ $(document).ready(function () {
 				breakpoint: 992, // md
 				settings: {
 					slidesToShow: 3,
-					slidesToScroll: 3,
+					slidesToScroll: 2,
 					infinite: false,
 				},
 			}, {
