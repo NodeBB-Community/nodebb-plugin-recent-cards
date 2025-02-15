@@ -29,6 +29,6 @@
     "eslint-plugin-import": "2.26.0"
   },
   "nbbpm": {
-    "compatibility": "^3.7.0"
+    "compatibility": "^4.0.0"
   }
 }
