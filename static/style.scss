@@ -1,8 +1,20 @@
 .recent-cards-plugin {
 	.topic-info {
-		height: 9em;
+		height: 7.5em;
 		> p {
 			margin-bottom: 1.5em;
+		}
+	}
+	.thumb-bg {
+		.recent-card {
+			background-size: cover;
+			background-position: center;
+		}
+		.glass-layer {
+			outline: 1px solid var(--bs-body-bg);
+			background: rgba(var(--bs-body-bg-rgb), 0.7);
+			backdrop-filter: blur(5px);
+			-webkit-backdrop-filter: blur(5px);
 		}
 	}
 }

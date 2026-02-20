@@ -12,7 +12,7 @@ const groups = require.main.require('./src/groups');
 const user = require.main.require('./src/user');
 
 const defaultSettings = {
-	enableCarousel: 0,
+	enableCarousel: 1,
 	enableCarouselPagination: 0,
 	minSlides: 1,
 	maxSlides: 4,
@@ -83,19 +83,10 @@ plugin.renderWidget = async function (widget) {
 	}
 	const topics = await getTopics(widget);
 
-	const sort = widget.data.sort || 'recent';
-	const sorts = {
-		create: sort === 'create',
-		recent: sort === 'recent',
-		posts: sort === 'posts',
-		votes: sort === 'votes',
-	};
-
 	widget.html = await app.renderAsync('partials/nodebb-plugin-recent-cards/header', {
 		topics: topics,
 		config: widget.templateData.config,
 		title: widget.data.title || '',
-		sorts: sorts,
 		carouselMode: plugin.settings.get('enableCarousel'),
 	});
 	return widget;

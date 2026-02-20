@@ -6,46 +6,39 @@
 
 	<div class="{{{ if !carouselMode }}}row{{{ else }}}d-flex gap-3{{{ end }}} recent-cards carousel-mode overflow-hidden" itemscope itemtype="http://www.schema.org/ItemList" {{{ if carouselMode }}}style=""{{{ end }}}>
 		{{{ each topics }}}
-		<div class="{{{ if !carouselMode }}}col-lg-3 col-sm-6 col-12 overflow-hidden{{{ end }}} recent-card-container" data-cid="{topics.category.cid}">
-			<div class="recent-card card card-header border rounded mb-2 p-2 position-relative d-inline-flex {{{ if !carouselMode }}}w-100{{{ end }}}" {{{ if carouselMode }}}style="width: 312px;"{{{ end }}}>
-				<div class="recent-card-body h-100 overflow-hidden">
-					<div>
-						<h6 class="topic-title mt-0 text-truncate"><a href="{config.relative_path}/topic/{topics.slug}{{{ if topics.bookmark }}}/{topics.bookmark}{{{ end }}}" title="{stripTags(topics.title)}">{topics.title}</a></h6>
-					</div>
-					<div class="d-flex">
-						<div class="me-2">
-							<a class="text-decoration-none" href="{config.relative_path}/user/{topics.teaser.user.userslug}">{buildAvatar(topics.teaser.user, "24px", true, "avatar-tooltip")}</a>
+		<div class="{{{ if !carouselMode }}}col-lg-3 col-sm-6 col-12 overflow-hidden{{{ end }}} recent-card-container {{{ if (./thumbs.length && (./teaser.pid == ./mainPid ))}}}thumb-bg{{{ end }}}" data-cid="{topics.category.cid}">
+			<div class="recent-card card card-header border-0 rounded mb-2 p-0 position-relative d-inline-flex {{{ if !carouselMode }}}w-100{{{ end }}}" style="{{{ if (./thumbs.length && (./teaser.pid == ./mainPid ))}}}background-image: url('{./thumbs.0.url}');{{{ end }}}{{{ if carouselMode }}}width: 312px;{{{ end }}}">
+				<div class="glass-layer rounded p-2">
+					<div class="recent-card-body h-100 overflow-hidden">
+						<div>
+							<h6 class="topic-title mt-0 text-truncate"><a href="{config.relative_path}/topic/{topics.slug}{{{ if topics.bookmark }}}/{topics.bookmark}{{{ end }}}" title="{stripTags(topics.title)}">{topics.title}</a></h6>
 						</div>
-						<div class="topic-info text-sm text-break" style="transform: rotate(0);">
-						{{{ if (./thumbs.length && (./teaser.pid == ./mainPid ))}}}
-							<a href="{config.relative_path}/post/{./mainPid}"><img src="{./thumbs.0.url}" class="mw-100" alt="[[topic:thumb-image]]"/></a>
-						{{{ else }}}
-						<a href="{config.relative_path}/topic/{topics.slug}{{{ if topics.bookmark }}}/{topics.bookmark}{{{ end }}}" class="stretched-link"></a>
-						{topics.teaser.content}
-						{{{ end }}}
-						</div>
-					</div>
-				</div>
-				<div class="d-flex mt-3 justify-content-between align-items-center gap-2">
-					<span class="category-item text-xs text-truncate">
-						{{{ if topics.category.icon }}}
-						{buildCategoryIcon(./category, "24px", "rounded-circle")}
-						{{{ end }}}
-						<a class="text-muted" title="{./category.name}" href="{config.relative_path}/category/{./category.slug}">{./category.name}</a>
-					</span>
+						<div class="d-flex flex-column gap-1">
+							<div class="d-flex gap-2 align-items-center">
+								<a class="text-decoration-none" href="{config.relative_path}/user/{topics.teaser.user.userslug}">{buildAvatar(./teaser.user, "24px", true, "avatar-tooltip")}</a>
 
-					{{{ if sorts.create}}}
-					<span class="text-muted text-xs text-truncate"><span class="sort-info timeago" title="{{{ if topics.timestampISO }}}{topics.timestampISO}{{{ end }}}"></span></span>
-					{{{ end}}}
-					{{{ if sorts.recent }}}
-					<span class="text-muted text-xs text-truncate"><span class="sort-info timeago" title="{{{ if topics.lastposttimeISO }}}{topics.lastposttimeISO}{{{ end }}}"></span></span>
-					{{{ end }}}
-					{{{ if sorts.posts }}}
-					<span class="text-muted text-xs text-truncate"><span class="sort-info">[[global:x-posts, {topics.postcount}]]</span></span>
-					{{{ end }}}
-					{{{ if sorts.votes }}}
-					<span class="text-muted text-xs text-truncate"><span class="sort-info">[[global:x-votes, {topics.votes}]]</span></span>
-					{{{ end }}}
+								<span class="timeago text-muted text-xs" title="{./teaser.timestampISO}"></span>
+							</div>
+							<div class="topic-info text-sm text-break line-clamp-5" style="transform: rotate(0);">
+								<a href="{config.relative_path}/topic/{topics.slug}{{{ if topics.bookmark }}}/{topics.bookmark}{{{ end }}}" class="stretched-link"></a>
+								<div>{topics.teaser.content}</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="d-flex mt-3 align-items-center gap-2">
+						<div class="d-flex category-item text-truncate">
+							{buildCategoryLabel(./category, "a", "border")}
+						</div>
+						<div class="badge text-body border border-gray-300 stats text-xs">
+							<span title="{formattedNumber(./postcount)}" class="fw-bold">{humanReadableNumber(./postcount)}</span>
+							<span class="text-lowercase fw-normal">[[global:posts]]</span>
+						</div>
+						<div class="badge text-body border border-gray-300 stats text-xs">
+							<span title="{formattedNumber(./votes)}" class="fw-bold">{humanReadableNumber(./votes)}</span>
+							<span class="text-lowercase fw-normal">[[global:votes]]</span>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
