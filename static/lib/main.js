@@ -55,6 +55,6 @@ $(document).ready(function () {
 				},
 			}],
 		});
-		recentCards.removeClass('overflow-hidden');
+		recentCards.removeClass('overflow-hidden invisible');
 	});
 });

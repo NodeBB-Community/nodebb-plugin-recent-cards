@@ -4,7 +4,7 @@
 	<h5>{title}</h5>
 	{{{ end }}}
 
-	<div class="{{{ if !carouselMode }}}row{{{ else }}}d-flex gap-3{{{ end }}} recent-cards carousel-mode overflow-hidden" itemscope itemtype="http://www.schema.org/ItemList" {{{ if carouselMode }}}style=""{{{ end }}}>
+	<div class="{{{ if !carouselMode }}}row{{{ else }}}d-flex gap-3{{{ end }}} recent-cards carousel-mode overflow-hidden invisible" itemscope itemtype="http://www.schema.org/ItemList" {{{ if carouselMode }}}style=""{{{ end }}}>
 		{{{ each topics }}}
 		<div class="{{{ if !carouselMode }}}col-lg-3 col-sm-6 col-12 overflow-hidden{{{ end }}} recent-card-container {{{ if (./thumbs.length && (./teaser.pid == ./mainPid ))}}}thumb-bg{{{ end }}}" data-cid="{topics.category.cid}">
 			<div class="recent-card card card-header border-0 rounded mb-2 p-0 position-relative d-inline-flex {{{ if !carouselMode }}}w-100{{{ end }}}" style="{{{ if (./thumbs.length && (./teaser.pid == ./mainPid ))}}}background-image: url('{./thumbs.0.url}');{{{ end }}}{{{ if carouselMode }}}width: 312px;{{{ end }}}">
