@@ -121,6 +121,7 @@ async function getTopics(widget) {
 			let nextTopics = await topics.getTopics(tids, {
 				uid: widget.uid,
 				teaserPost: widget.data.teaserPost || 'first',
+				thumbsOnly: true,
 			});
 
 			nextTopics = await user.blocks.filter(widget.uid, nextTopics);
@@ -149,6 +150,7 @@ async function getTopics(widget) {
 		topicsData.topics = await topics.getTopics(topicsTids, {
 			uid: widget.uid,
 			teaserPost: widget.data.teaserPost || 'first',
+			thumbsOnly: true,
 		});
 	} else if (fromGroups.length) {
 		const uids = _.uniq(_.flatten(await groups.getMembersOfGroups(fromGroups)));
