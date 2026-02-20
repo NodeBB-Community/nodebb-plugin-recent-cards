@@ -16,8 +16,8 @@
 						<div class="d-flex flex-column gap-1">
 							<div class="d-flex gap-2 align-items-center">
 								<a class="text-decoration-none" href="{config.relative_path}/user/{topics.teaser.user.userslug}">{buildAvatar(./teaser.user, "24px", true, "avatar-tooltip")}</a>
-
-								<span class="timeago text-muted text-xs" title="{./teaser.timestampISO}"></span>
+								<a class="flex-shrink-1 text-xs text-truncate" href="{config.relative_path}/user/{topics.teaser.user.userslug}">{./teaser.user.displayname}</a>
+								<span class="flex-shrink-0 timeago text-muted text-xs" title="{./teaser.timestampISO}"></span>
 							</div>
 							<div class="topic-info text-sm text-break line-clamp-5" style="transform: rotate(0);">
 								<a href="{config.relative_path}/topic/{topics.slug}{{{ if topics.bookmark }}}/{topics.bookmark}{{{ end }}}" class="stretched-link"></a>
