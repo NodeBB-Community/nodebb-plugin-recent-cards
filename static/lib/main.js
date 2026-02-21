@@ -11,7 +11,7 @@ $(document).ready(function () {
 			'[[global:pagination.nextpage]]', '[[global:pagination.previouspage]]',
 		], config.userLang);
 		if (!config.recentCards || !config.recentCards.enableCarousel) {
-			recentCards.removeClass('carousel-mode');
+			recentCards.removeClass('carousel-mode invisible');
 			return;
 		}
 		const rtl = $('html').attr('data-dir') === 'rtl';
