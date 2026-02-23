@@ -15,12 +15,14 @@ $(document).ready(function () {
 			return;
 		}
 		const rtl = $('html').attr('data-dir') === 'rtl';
-		const arrowClasses = 'position-absolute top-50 translate-middle-y p-1 z-1';
+		const arrowClasses = 'link-secondary position-absolute top-50 translate-middle-y p-1 z-1';
+		const nextIcon = rtl ? 'fa-chevron-left' : 'fa-chevron-right';
+		const prevIcon = rtl ? 'fa-chevron-right' : 'fa-chevron-left';
 		const nextArrow = `<a href="#" class="${arrowClasses} ${rtl ? ' slick-prev' : ' slick-next'}" title="${nextTitle}">
-			<i class="fa fa-fw fa-chevron-right"></i>
+			<i class="fa-solid fa-fw ${nextIcon} fa-lg"></i>
 		</a>`;
 		const prevArrow = `<a href="#" class="${arrowClasses} ${rtl ? 'slick-next' : 'slick-prev'}" title="${prevTitle}">
-			<i class="fa fa-fw fa-chevron-left "></i>
+			<i class="fa-solid fa-fw ${prevIcon} fa-lg"></i>
 		</a>`;
 		const slideCount = parseInt(config.recentCards.maxSlides, 10) || 4;
 		const slideMargin = 16;
