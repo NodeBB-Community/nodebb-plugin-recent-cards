@@ -34,6 +34,14 @@
 </div>
 
 <div class="mb-3">
+	<label class="form-label" for="teaserParseType">Teaser Parse Type</label>
+	<select class="form-select" id="teaserParseType" name="teaserParseType">
+		<option value="default">Default</option>
+		<option value="plaintext">Plaintext</option>
+	</select>
+</div>
+
+<div class="mb-3">
 	<label class="form-label" for="sortBy">Sort Topics</label>
 	<select class="form-select" id="sortBy" name="sort">
 		<option value="recent">Recently Replied</option>

@@ -107,6 +107,14 @@ function isVisibleInCategory(widget) {
 }
 
 async function getTopics(widget) {
+	const teaserPost = widget.data.teaserPost || 'first';
+	const teaserParseType = widget.data.teaserParseType || 'default';
+	const getTopicsOptions = {
+		uid: widget.uid,
+		teaserPost,
+		teaserParseType,
+		thumbsOnly: true,
+	};
 	async function getTopicsFromSet(set) {
 		let start = 0;
 		const topicsData = [];
@@ -118,12 +126,7 @@ async function getTopics(widget) {
 			}
 
 			tids = await topics.filterNotIgnoredTids(tids, widget.uid);
-			let nextTopics = await topics.getTopics(tids, {
-				uid: widget.uid,
-				teaserPost: widget.data.teaserPost || 'first',
-				teaserParseType: 'default',
-				thumbsOnly: true,
-			});
+			let nextTopics = await topics.getTopics(tids, getTopicsOptions);
 
 			nextTopics = await user.blocks.filter(widget.uid, nextTopics);
 			topicsData.push(...nextTopics);
@@ -148,12 +151,7 @@ async function getTopics(widget) {
 	// hard coded to show these topic tids only
 	const topicsTids = getIdsArray(widget.data, 'topicsTids');
 	if (topicsTids.length) {
-		topicsData.topics = await topics.getTopics(topicsTids, {
-			uid: widget.uid,
-			teaserPost: widget.data.teaserPost || 'first',
-			teaserParseType: 'default',
-			thumbsOnly: true,
-		});
+		topicsData.topics = await topics.getTopics(topicsTids, getTopicsOptions);
 	} else if (fromGroups.length) {
 		const uids = _.uniq(_.flatten(await groups.getMembersOfGroups(fromGroups)));
 		const sets = uids.map((uid) => {
