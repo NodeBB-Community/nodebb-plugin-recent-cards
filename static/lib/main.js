@@ -1,7 +1,7 @@
 'use strict';
 
 $(document).ready(function () {
-	$(window).on('action:ajaxify.end', async function () {
+	$(window).on('action:ajaxify.contentLoaded', async function () {
 		const recentCards = $('.recent-cards');
 		if (!recentCards.length) {
 			return;
