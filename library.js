@@ -121,6 +121,7 @@ async function getTopics(widget) {
 			let nextTopics = await topics.getTopics(tids, {
 				uid: widget.uid,
 				teaserPost: widget.data.teaserPost || 'first',
+				teaserParseType: 'default',
 				thumbsOnly: true,
 			});
 
@@ -150,6 +151,7 @@ async function getTopics(widget) {
 		topicsData.topics = await topics.getTopics(topicsTids, {
 			uid: widget.uid,
 			teaserPost: widget.data.teaserPost || 'first',
+			teaserParseType: 'default',
 			thumbsOnly: true,
 		});
 	} else if (fromGroups.length) {
