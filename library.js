@@ -94,7 +94,7 @@ plugin.renderWidget = async function (widget) {
 
 function getIdsArray(data, field) {
 	const ids = String(data[field] || '');
-	return ids.split(',').map(c => parseInt(c.trim(), 10)).filter(Boolean);
+	return ids.split(',').map(c => c.trim()).filter(Boolean);
 }
 
 function isVisibleInCategory(widget) {
@@ -102,7 +102,7 @@ function isVisibleInCategory(widget) {
 	return !(
 		cids.length &&
 		(widget.templateData.template.category || widget.templateData.template.topic) &&
-		!cids.includes(parseInt(widget.templateData.cid, 10))
+		!cids.includes(String(widget.templateData.cid))
 	);
 }
 
@@ -140,7 +140,7 @@ async function getTopics(widget) {
 	};
 	let filterCids = getIdsArray(widget.data, 'topicsFromCid');
 	if (!filterCids.length && widget.templateData.cid) {
-		filterCids = [parseInt(widget.templateData.cid, 10)];
+		filterCids = [String(widget.templateData.cid)];
 	}
 
 	widget.data.sort = widget.data.sort || 'recent';
@@ -197,7 +197,7 @@ async function getTopics(widget) {
 
 	if (!plugin.settings.get('enableCarousel')) {
 		while (finalTopics.length < 4 && i < topicsData.topics.length) {
-			const cid = parseInt(topicsData.topics[i].cid, 10);
+			const cid = String(topicsData.topics[i].cid);
 
 			if (filterCids.length || !cids.includes(cid) || topicsData.topics.length <= 4) {
 				cids.push(cid);
