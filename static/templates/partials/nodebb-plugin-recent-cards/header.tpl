@@ -19,9 +19,9 @@
 								<a class="flex-shrink-1 text-xs text-truncate text-reset" href="{config.relative_path}/user/{./teaser.user.userslug}">{./teaser.user.displayname}</a>
 								<span class="flex-shrink-0 timeago text-muted text-xs" title="{./teaser.timestampISO}"></span>
 							</div>
-							<div class="topic-info text-sm text-break line-clamp-5" style="transform: rotate(0);">
+							<div class="text-sm text-break line-clamp-5" style="transform: rotate(0);">
 								<a href="{config.relative_path}/topic/{./slug}{{{ if ./bookmark }}}/{./bookmark}{{{ end }}}" class="stretched-link"></a>
-								<div>{./teaser.content}</div>
+								<div class="teaser-content">{./teaser.content}</div>
 							</div>
 						</div>
 					</div>
