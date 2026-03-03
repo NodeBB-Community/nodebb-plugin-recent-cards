@@ -18,25 +18,10 @@
 {
     opacity: .25;
 }
-.slick-prev
-{
-	left: 0px;
-}
-[data-dir='rtl'] .slick-prev
-{
-    right: 0px;
-    left: auto;
-}
 
-.slick-next
-{
-    right: 0px;
-}
-[data-dir='rtl'] .slick-next
-{
-    right: auto;
-    left: 0px;
-}
+/* rtlcss converts these to right/left:0px on RTL */
+.slick-prev { left: 0px; }
+.slick-next { right: 0px; }
 
 /* Dots */
 .slick-dotted.slick-slider

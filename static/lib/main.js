@@ -5,10 +5,10 @@ $(document).ready(function () {
 	const arrowClasses = 'link-secondary position-absolute top-50 translate-middle-y p-1 z-1';
 	const nextIcon = rtl ? 'fa-chevron-left' : 'fa-chevron-right';
 	const prevIcon = rtl ? 'fa-chevron-right' : 'fa-chevron-left';
-	const nextArrow = `<a href="#" class="${arrowClasses} ${rtl ? ' slick-prev' : ' slick-next'}" title="">
+	const nextArrow = `<a href="#" class="${arrowClasses} slick-next" title="">
 			<i class="fa-solid fa-fw ${nextIcon} fa-lg"></i>
 		</a>`;
-	const prevArrow = `<a href="#" class="${arrowClasses} ${rtl ? 'slick-next' : 'slick-prev'}" title="">
+	const prevArrow = `<a href="#" class="${arrowClasses} slick-prev" title="">
 			<i class="fa-solid fa-fw ${prevIcon} fa-lg"></i>
 		</a>`;
 
@@ -57,15 +57,8 @@ $(document).ready(function () {
 		});
 
 		container.removeClass('overflow-hidden invisible');
-
-		container.find(rtl ? '.slick-prev' : '.slick-next').translateAttr(
-			'title', rtl ?
-				'[[global:pagination.previouspage]]' :
-				'[[global:pagination.nextpage]]');
-		container.find(rtl ? '.slick-next' : '.slick-prev').translateAttr(
-			'title', rtl ?
-				'[[global:pagination.nextpage]]' :
-				'[[global:pagination.previouspage]]');
+		container.find('.slick-prev').translateAttr('title', '[[global:pagination.previouspage]]');
+		container.find('.slick-next').translateAttr('title', '[[global:pagination.nextpage]]');
 	}
 
 	$('.recent-cards').each(function () {
