@@ -209,6 +209,16 @@ async function getTopics(widget) {
 	} else {
 		finalTopics = topicsData.topics;
 	}
+
+	const thumbStyle = widget.data.thumbnailStyle || 'background';
+	finalTopics.forEach((t) => {
+		if (t) {
+			const showThumbs = t.thumbs?.length && String(t?.teaser.pid) === String(t.mainPid);
+			t.showThumbnailInBackground = showThumbs && thumbStyle === 'background';
+			t.showThumbnailInline = showThumbs && thumbStyle === 'inline';
+		}
+	});
+
 	return finalTopics;
 }
 

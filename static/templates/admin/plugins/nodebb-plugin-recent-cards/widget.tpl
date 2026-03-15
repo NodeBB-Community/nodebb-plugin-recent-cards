@@ -50,3 +50,11 @@
 		<option value="votes">Most Votes</option>
 	</select>
 </div>
+
+<div class="mb-3">
+	<label class="form-label" for="thumbnailStyle">Thumbnail Style</label>
+	<select class="form-select" id="thumbnailStyle" name="thumbnailStyle">
+		<option value="background">Background</option>
+		<option value="inline">Inline</option>
+	</select>
+</div>
