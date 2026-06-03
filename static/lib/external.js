@@ -9,7 +9,7 @@ $(document).ready(function () {
 
 		$('#nodebb-plugin-recent-cards').html($(html[2]));
 
-		var ajaxifyData = $(html[4]);
+		let ajaxifyData = $(html[4]);
 
 		if (ajaxifyData.length) {
 			ajaxifyData = JSON.parse(ajaxifyData.text());

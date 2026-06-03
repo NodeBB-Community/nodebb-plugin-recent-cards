@@ -2,14 +2,14 @@
 
 'use strict';
 
-const nconf = require.main.require('nconf');
-const _ = require.main.require('lodash');
-const validator = require.main.require('validator');
-const db = require.main.require('./src/database');
-const topics = require.main.require('./src/topics');
-const settings = require.main.require('./src/settings');
-const groups = require.main.require('./src/groups');
-const user = require.main.require('./src/user');
+const nconf = nodebb.require('nconf');
+const _ = nodebb.require('lodash');
+const validator = nodebb.require('validator');
+const db = nodebb.require('./src/database');
+const topics = nodebb.require('./src/topics');
+const settings = nodebb.require('./src/settings');
+const groups = nodebb.require('./src/groups');
+const user = nodebb.require('./src/user');
 
 const defaultSettings = {
 	enableCarousel: 1,
@@ -24,7 +24,7 @@ let app;
 plugin.init = async function (params) {
 	app = params.app;
 	const { router } = params;
-	const routeHelpers = require.main.require('./src/routes/helpers');
+	const routeHelpers = nodebb.require('./src/routes/helpers');
 	routeHelpers.setupAdminPageRoute(router, '/admin/plugins/recentcards', renderAdmin);
 
 	router.get('/plugins/nodebb-plugin-recent-cards/render', renderExternal);

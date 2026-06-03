@@ -27,11 +27,10 @@
   },
   "readmeFilename": "README.md",
   "devDependencies": {
-    "eslint": "^9.x",
-    "eslint-config-nodebb": "1.1.11",
-    "eslint-plugin-import": "2.32.0"
+    "@eslint/js": "^10.0.1",
+    "eslint-config-nodebb": "^2.0.2"
   },
   "nbbpm": {
-    "compatibility": "^4.0.0"
+    "compatibility": "^4.12.0"
   }
 }
