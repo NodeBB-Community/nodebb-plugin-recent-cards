@@ -24,7 +24,7 @@
 								{{{ if ./showThumbnailInline }}}
 								<a href="{config.relative_path}/post/{./mainPid}"><img src="{./thumbs.0.url}" class="mw-100" alt="[[topic:thumb-image]]"/></a>
 								{{{ else }}}
-								<div class="teaser-content">{./teaser.content}</div>
+								<div class="teaser-content">{{./teaser.content}}</div>
 								{{{ end }}}
 							</div>
 						</div>
@@ -32,7 +32,7 @@
 
 					<div class="d-flex mt-3 align-items-center gap-2">
 						<div class="d-flex category-item text-truncate">
-							{buildCategoryLabel(./category, "a", "border")}
+							{{buildCategoryLabel(./category, "a", "border")}}
 						</div>
 						<div class="badge text-body border border-gray-300 stats text-xs">
 							<span title="{formattedNumber(./postcount)}" class="fw-bold">{humanReadableNumber(./postcount)}</span>
