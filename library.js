@@ -4,7 +4,6 @@
 
 const nconf = nodebb.require('nconf');
 const _ = nodebb.require('lodash');
-const validator = nodebb.require('validator');
 const db = nodebb.require('./src/database');
 const topics = nodebb.require('./src/topics');
 const settings = nodebb.require('./src/settings');
@@ -47,9 +46,6 @@ plugin.defineWidgets = async function (widgets) {
 	const groupNames = await db.getSortedSetRevRange('groups:visible:createtime', 0, -1);
 	let groupsData = await groups.getGroupsData(groupNames);
 	groupsData = groupsData.filter(Boolean);
-	groupsData.forEach((group) => {
-		group.name = validator.escape(String(group.name));
-	});
 
 	const html = await app.renderAsync('admin/plugins/nodebb-plugin-recent-cards/widget', {
 		groups: groupsData,
@@ -86,6 +82,7 @@ plugin.renderWidget = async function (widget) {
 	widget.html = await app.renderAsync('partials/nodebb-plugin-recent-cards/header', {
 		topics: topics,
 		config: widget.templateData.config,
+		_i18n: widget.res.locals._i18n,
 		title: widget.data.title || '',
 		carouselMode: plugin.settings.get('enableCarousel'),
 	});
