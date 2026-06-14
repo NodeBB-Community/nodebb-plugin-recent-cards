@@ -11,7 +11,7 @@
 				<div class="glass-layer rounded p-2">
 					<div class="recent-card-body h-100 overflow-hidden">
 						<div>
-							<h6 class="topic-title mt-0 text-truncate"><a class="text-reset" href="{config.relative_path}/topic/{./slug}{{{ if ./bookmark }}}/{./bookmark}{{{ end }}}" title="{{generateTopicTitle(@value)}}">{{generateTopicTitle(@value)}}</a></h6>
+							<h6 class="topic-title mt-0 text-truncate"><a class="text-reset" href="{config.relative_path}/topic/{./slug}{{{ if ./bookmark }}}/{./bookmark}{{{ end }}}" title="{./title}">{./title}</a></h6>
 						</div>
 						<div class="d-flex flex-column gap-1">
 							<div class="d-flex gap-2 align-items-center">
