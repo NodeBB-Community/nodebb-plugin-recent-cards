@@ -24,7 +24,7 @@
 								{{{ if ./showThumbnailInline }}}
 								<a href="{config.relative_path}/post/{./mainPid}"><img src="{./thumbs.0.url}" class="mw-100" alt="[[topic:thumb-image]]"/></a>
 								{{{ else }}}
-								<div class="teaser-content">{{./teaser.content}}</div>
+								<div class="teaser-content">{{txEscape(./teaser.content)}}</div>
 								{{{ end }}}
 							</div>
 						</div>
