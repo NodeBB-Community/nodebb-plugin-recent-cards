@@ -22,9 +22,9 @@
 							<div class="text-sm text-break line-clamp-5" style="transform: rotate(0);">
 								<a href="{config.relative_path}/topic/{./slug}{{{ if ./bookmark }}}/{./bookmark}{{{ end }}}" class="stretched-link"></a>
 								{{{ if ./showThumbnailInline }}}
-								<a href="{config.relative_path}/post/{./mainPid}"><img src="{./thumbs.0.url}" class="mw-100" alt="[[topic:thumb-image]]"/></a>
+								<a href="{config.relative_path}/post/{./mainPid}"><img src="{./thumbs.0.url}" class="mw-100" alt="{{tx("topic:thumb-image")}}"/></a>
 								{{{ else }}}
-								<div class="teaser-content">{{txEscape(./teaser.content)}}</div>
+								<div class="teaser-content">{{./teaser.content}}</div>
 								{{{ end }}}
 							</div>
 						</div>
@@ -36,11 +36,11 @@
 						</div>
 						<div class="badge text-body border border-gray-300 stats text-xs">
 							<span title="{formattedNumber(./postcount)}" class="fw-bold">{humanReadableNumber(./postcount)}</span>
-							<span class="text-lowercase fw-normal">[[global:posts]]</span>
+							<span class="text-lowercase fw-normal">{{tx("global:posts")}}</span>
 						</div>
 						<div class="badge text-body border border-gray-300 stats text-xs">
 							<span title="{formattedNumber(./votes)}" class="fw-bold">{humanReadableNumber(./votes)}</span>
-							<span class="text-lowercase fw-normal">[[global:votes]]</span>
+							<span class="text-lowercase fw-normal">{{tx("global:votes")}}</span>
 						</div>
 					</div>
 				</div>
