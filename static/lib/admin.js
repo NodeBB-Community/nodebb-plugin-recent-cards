@@ -1,13 +1,11 @@
 'use strict';
 
-define('admin/plugins/recentcards', ['settings'], function (settings) {
-	const admin = {};
-	admin.init = function () {
-		settings.sync('recentcards', $('#recentcards'));
+import { save, load } from 'settings';
 
-		$('#save').click(function () {
-			settings.persist('recentcards', $('#recentcards'));
-		});
-	};
-	return admin;
-});
+export function init() {
+	load('recentcards', $('#recentcards'));
+
+	$('#save').on('click', () => {
+		save('recentcards', $('#recentcards'));
+	});
+}
