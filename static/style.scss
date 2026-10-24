@@ -1,4 +1,15 @@
 .recent-cards-plugin {
+	.slick-prev,
+	.slick-next {
+		transition: opacity 0.15s ease-in-out;
+		opacity: 0.75;
+
+		&:hover,
+		&:focus-visible {
+			opacity: 1;
+		}
+	}
+
 	.teaser-content {
 		h1, h2, h3, h4, h5, h6 {
 			font-size: 1rem;

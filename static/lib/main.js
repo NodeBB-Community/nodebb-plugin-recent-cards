@@ -2,7 +2,7 @@
 
 $(document).ready(function () {
 	const rtl = $('html').attr('data-dir') === 'rtl';
-	const arrowClasses = 'link-secondary position-absolute top-50 translate-middle-y p-1 z-1';
+	const arrowClasses = 'text-body position-absolute top-50 translate-middle-y p-1 z-1';
 	const nextIcon = rtl ? 'fa-chevron-left' : 'fa-chevron-right';
 	const prevIcon = rtl ? 'fa-chevron-right' : 'fa-chevron-left';
 	const nextArrow = `<a href="#" class="${arrowClasses} slick-next" title="">
