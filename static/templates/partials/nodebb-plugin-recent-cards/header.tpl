@@ -15,8 +15,8 @@
 						</div>
 						<div class="d-flex flex-column gap-1">
 							<div class="d-flex gap-2 align-items-center">
-								<a class="text-decoration-none" href="{config.relative_path}/user/{./teaser.user.userslug}">{{buildAvatar(./teaser.user, "24px", true, "avatar-tooltip")}}</a>
-								<a class="flex-shrink-1 text-xs text-truncate text-reset" href="{config.relative_path}/user/{./teaser.user.userslug}">{./teaser.user.displayname}</a>
+								<a class="text-decoration-none" href="{{{ if ./teaser.user.userslug }}}{config.relative_path}/user/{./teaser.user.userslug}{{{ else }}}#{{{ end }}}">{{buildAvatar(./teaser.user, "24px", true, "avatar-tooltip")}}</a>
+								<a class="flex-shrink-1 text-xs text-truncate text-reset" href="{{{ if ./teaser.user.userslug }}}{config.relative_path}/user/{./teaser.user.userslug}{{{ else }}}#{{{ end }}}">{{ txDisplayname(./teaser.user) }}</a>
 								<span class="flex-shrink-0 timeago text-muted text-xs" title="{./teaser.timestampISO}"></span>
 							</div>
 							<div class="text-sm text-break line-clamp-5" style="transform: rotate(0);">
